@@ -8,6 +8,7 @@ public class PlayerControlScript : MonoBehaviour
     //Declarations
     public Rigidbody2D rb2d;
     public float speed = .05F;
+    public float rotateSpeed = 100f;
     public float jumpSpeed = 3;
     private bool onGround = false;
     public bool hasFirstKey = false;
@@ -17,12 +18,15 @@ public class PlayerControlScript : MonoBehaviour
     public bool hasHornPunch = false;
     public bool hasShield = false;
     public bool hasThirdkey = false;
+    private bool punching = false;
+    public SpriteRenderer spriteRender;
 
 
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        spriteRender = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -30,8 +34,16 @@ public class PlayerControlScript : MonoBehaviour
     {
         #region movement
         float horzMovement = Input.GetAxis("horzAxis")*speed;
-
         Vector2 movement = new Vector2 (horzMovement, 0);
+
+        if(rb2d.velocity.x >= 0.1){
+            //Debug.Log("Gina should be looking right.");
+            spriteRender.flipX = false;
+            }
+            else {
+            //Debug.Log("Gina should be looking left.");    
+            spriteRender.flipX = true;
+            }
 
         //Call the AddForce function of our Rigidbody2D rb2d supplying movement multiplied by speed to move our player.
         //Slow the movement when in the air.
@@ -55,8 +67,8 @@ public class PlayerControlScript : MonoBehaviour
         }
 
         //Punch Logic
-        if(Input.GetButtonDown("bButton") && hasHornPunch){
-
+        if(Input.GetButtonDown("bButton") && hasHornPunch && !punching){
+           // Punch(0.5f, 1.25f, transform.forward);
         }
 
         //Shield Logic
@@ -64,6 +76,13 @@ public class PlayerControlScript : MonoBehaviour
 
         }
         #endregion
+
+    }
+
+    void Punch(float time, float distance, Vector3 direction){
+        var origin = transform.position;
+        var offset = transform.right * 1.13f;
+        var hits = new HashSet<RaycastHit2D>();
 
     }
 
