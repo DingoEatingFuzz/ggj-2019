@@ -28,7 +28,7 @@ public class GameData : MonoBehaviour {
   static public void GoToScreen(string To, string Exit) {
     var currentScene = SceneManager.GetActiveScene();
     var node = GameData.Map[To];
-    var player = GameObject.Find("TempCharacter");
+    var player = GameObject.Find("Gina");
 
     SceneManager.LoadScene(To, LoadSceneMode.Additive);
     SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName(To));
