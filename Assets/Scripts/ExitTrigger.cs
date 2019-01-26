@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ExitTrigger : MonoBehaviour
 {
     // Start is called before the first frame update
-    public string ScreenName;
     public string ExitName;
 
     void Start()
@@ -19,9 +19,13 @@ public class ExitTrigger : MonoBehaviour
 
     }
 
-    void OnMouseDown()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        var node = GameData.Map[ScreenName];
-        node.exit(ExitName);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            var node = GameData.Map[SceneManager.GetActiveScene().name];
+            node.exit(ExitName);
+        }
+        
     }
 }

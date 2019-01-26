@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 243c426859448804c880e67b4ef40316
+guid: 42db7b745d48181438e2359a6fc04223
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -32,15 +32,15 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
-    wrapU: 1
-    wrapV: 1
-    wrapW: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 3
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -49,8 +49,8 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -62,8 +62,8 @@ TextureImporter:
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
+    textureFormat: 4
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -73,8 +73,8 @@ TextureImporter:
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
+    textureFormat: 4
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -83,10 +83,25 @@ TextureImporter:
   spriteSheet:
     serializedVersion: 2
     sprites: []
-    outline: []
-    physicsShape: []
+    outline:
+    - - {x: 0.37605095, y: 0.80405426}
+      - {x: 0, y: 2}
+      - {x: -0.28888905, y: 0.8444443}
+      - {x: -1.9021131, y: 0.61803395}
+      - {x: -0.4953425, y: 0.29945636}
+      - {x: -1.1755704, y: -1.6180341}
+      - {x: -0.026051879, y: -0.24025619}
+      - {x: 1.1755707, y: -1.6180339}
+      - {x: 0.48307133, y: 0.22242475}
+      - {x: 1.902113, y: 0.61803424}
+    physicsShape:
+    - - {x: 0, y: 2}
+      - {x: -1.9021131, y: 0.61803395}
+      - {x: -1.1755704, y: -1.6180341}
+      - {x: 1.1755707, y: -1.6180339}
+      - {x: 1.902113, y: 0.61803424}
     bones: []
-    spriteID: b526fe9b4b1c84841b3b3733aa1579f3
+    spriteID: 31aa071b49f1d554383de95220514c94
     vertices: []
     indices: 
     edges: []
