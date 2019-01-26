@@ -10,8 +10,13 @@ public class PlayerControlScript : MonoBehaviour
     public float speed = .05F;
     public float jumpSpeed = 3;
     private bool onGround = false;
-    private float jump = 1;
-
+    public bool hasFirstKey = false;
+    public bool hasDoubleJump = false;
+    public bool playerCanDoubleJump = false;
+    public bool hasSecondKey = false;
+    public bool hasHornPunch = false;
+    public bool hasShield = false;
+    public bool hasThirdkey = false;
 
 
     // Start is called before the first frame update
@@ -35,10 +40,15 @@ public class PlayerControlScript : MonoBehaviour
         }else{rb2d.AddForce (movement * (speed/3));}
 
         //only allow jumping if you are on the ground.
-        if(Input.GetButtonDown("aButton") && onGround == true)
+        if(Input.GetButtonDown("aButton") && (onGround || (playerCanDoubleJump && hasDoubleJump)))
         {
             Vector3 jumpMovement = new Vector3 (0.0f, 1.0f,0.0f);
             rb2d.velocity = jumpMovement * jumpSpeed;
+
+            if(!onGround){
+                playerCanDoubleJump = false;
+            }
+
         }
     }
 
@@ -47,6 +57,10 @@ public class PlayerControlScript : MonoBehaviour
     {
         if(collision.gameObject.tag =="Ground")
         {
+            if(hasDoubleJump){
+                playerCanDoubleJump = true;
+            }
+
             onGround = true;
         }
     }
