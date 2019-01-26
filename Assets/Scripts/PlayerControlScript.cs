@@ -79,11 +79,33 @@ public class PlayerControlScript : MonoBehaviour
 
     }
 
-    void Punch(float time, float distance, Vector3 direction){
+   public void Punch(float time, float distance, Vector3 direction){
         var origin = transform.position;
         var offset = transform.right * 1.13f;
         var hits = new HashSet<RaycastHit2D>();
 
+    }
+
+    //This method is where we "kill" the player.
+    //they should flash and then be teleported to the the last EXIT the went through.
+    public void playerDeath(){
+
+        StartCoroutine(Flash());
+
+
+
+        //Destroy(gameObject);
+    }
+
+    IEnumerator Flash()
+    {
+        for (int n = 0; n < 5; n++)
+        {
+            spriteRender.enabled=false;
+            yield return new WaitForSeconds(0.1f);
+            spriteRender.enabled = true;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     void OnTriggerEnter2D (Collider2D collision){
@@ -112,8 +134,9 @@ public class PlayerControlScript : MonoBehaviour
             hasShield = true;
             Destroy(collision.gameObject);
         }
-
-
+        if(collision.gameObject.CompareTag("enemy")){
+            playerDeath();
+        }
     }
 
     //Check if the object is on the ground

@@ -11,6 +11,7 @@ TagManager:
   - doubleJumpItem
   - punchItem
   - shieldItem
+  - enemy
   layers:
   - Default
   - TransparentFX
