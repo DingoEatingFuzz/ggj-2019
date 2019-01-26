@@ -28,7 +28,7 @@ public class PlayerControlScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        #region movement
         float horzMovement = Input.GetAxis("horzAxis")*speed;
 
         Vector2 movement = new Vector2 (horzMovement, 0);
@@ -38,8 +38,11 @@ public class PlayerControlScript : MonoBehaviour
         if(onGround){
             rb2d.AddForce (movement * speed);
         }else{rb2d.AddForce (movement * (speed/3));}
-
-        //only allow jumping if you are on the ground.
+        
+        #endregion
+        
+        #region Action handling
+        //Jumping Logic
         if(Input.GetButtonDown("aButton") && (onGround || (playerCanDoubleJump && hasDoubleJump)))
         {
             Vector3 jumpMovement = new Vector3 (0.0f, 1.0f,0.0f);
@@ -50,12 +53,54 @@ public class PlayerControlScript : MonoBehaviour
             }
 
         }
+
+        //Punch Logic
+        if(Input.GetButtonDown("bButton") && hasHornPunch){
+
+        }
+
+        //Shield Logic
+        if(Input.GetButtonDown("xButton") && hasShield){
+
+        }
+        #endregion
+
+    }
+
+    void OnTriggerEnter2D (Collider2D collision){
+        if(collision.gameObject.CompareTag("firstKey")){
+            hasFirstKey = true;
+            Destroy(collision.gameObject);
+        }
+        if(collision.gameObject.CompareTag("secondKey")){
+            hasSecondKey = true;
+            Destroy(collision.gameObject);
+        }
+        if(collision.gameObject.CompareTag("thirdKey")){
+            hasThirdkey = true;
+            Destroy(collision.gameObject);
+        }
+        if(collision.gameObject.CompareTag("doubleJumpItem")){
+            hasDoubleJump = true;
+            playerCanDoubleJump = true;
+            Destroy(collision.gameObject);
+        }
+        if(collision.gameObject.CompareTag("punchItem")){
+            hasHornPunch = true;
+            Destroy(collision.gameObject);
+        }
+        if(collision.gameObject.CompareTag("shieldItem")){
+            hasShield = true;
+            Destroy(collision.gameObject);
+        }
+
+
     }
 
     //Check if the object is on the ground
     void OnCollisionEnter2D (Collision2D collision)
     {
-        if(collision.gameObject.tag =="Ground")
+        if(collision.gameObject.CompareTag("Ground"))
         {
             if(hasDoubleJump){
                 playerCanDoubleJump = true;

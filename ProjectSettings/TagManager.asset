@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - firstKey
+  - secondKey
+  - thirdKey
+  - doubleJumpItem
+  - punchItem
+  - shieldItem
   layers:
   - Default
   - TransparentFX
