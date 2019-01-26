@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public class ScreenNode {
-  public string Name;
   public List<ScreenExit> Exits;
-  public ScreenNode(string name, List<ScreenExit> exits) {
-    this.Name = name;
+  public ScreenNode(List<ScreenExit> exits) {
     this.Exits = exits;
   }
 
