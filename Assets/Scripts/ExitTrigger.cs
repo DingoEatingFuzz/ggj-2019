@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class StartScreen : MonoBehaviour
+public class ExitTrigger : MonoBehaviour
 {
     // Start is called before the first frame update
+    public string ScreenName;
+    public string ExitName;
+
     void Start()
     {
 
@@ -14,9 +16,12 @@ public class StartScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("start") || Input.GetKeyDown(KeyCode.Return))
-        {
-            SceneManager.LoadScene("FrontDoor");
-        }
+
+    }
+
+    void OnMouseDown()
+    {
+        var node = GameData.Map[ScreenName];
+        node.exit(ExitName);
     }
 }

@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Screens/FrontDoor.unity
     guid: 63ffe85fdc6545e4d995cd0cf3442a99
+  - enabled: 1
+    path: Assets/Scenes/Screens/DoubleJump.unity
+    guid: 17f7d43724e2e86448c4e953ac74c432
+  - enabled: 1
+    path: Assets/Scenes/Screens/CircleKey.unity
+    guid: 857805ac0f1cc7b46b5716178a9ea7ef
   m_configObjects: {}

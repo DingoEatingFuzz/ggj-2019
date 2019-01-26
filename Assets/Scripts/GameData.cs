@@ -26,9 +26,20 @@ public class GameData : MonoBehaviour {
   };
 
   static public void GoToScreen(string To, string Exit) {
+    var currentScene = SceneManager.GetActiveScene();
     var node = GameData.Map[To];
-    // Go to the matching scene
-    SceneManager.LoadScene(To);
+    var player = GameObject.Find("TempCharacter");
+
+    SceneManager.LoadScene(To, LoadSceneMode.Additive);
+    SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName(To));
+
+    // Find the exit game object to position player (e.g., LeftExit for Left)
+    var exit = GameObject.Find(Exit + "Exit");
+
     // Move the player to the exit coordinates
+    player.transform.position = exit.transform.position;
+
+    // Maybe unload scenes? It's not necessary, but it's probably good for memory at some point
+    //SceneManager.UnloadSceneAsync(currentScene);
   }
 }
