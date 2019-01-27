@@ -45,15 +45,17 @@ public class PlayerControlScript : MonoBehaviour
         float horzMovement = Input.GetAxis("horzAxis")*speed;
         Vector2 movement = new Vector2 (horzMovement, 0);
 
-        if(rb2d.velocity.x > 0.25){
+        if(rb2d.velocity.x > 0.25)
+        {
             gina.flipX = false;
             anim.SetTrigger("GinaWalk");
         }
-        else if(rb2d.velocity.x < -0.25) {
+        else if(rb2d.velocity.x < -0.25) 
+        {
             gina.flipX = true;
             anim.SetTrigger("GinaWalk");
         }
-        else{anim.SetTrigger("GinaIdle");}
+        else anim.SetTrigger("GinaIdle");
 
 
 
@@ -77,6 +79,10 @@ public class PlayerControlScript : MonoBehaviour
                 playerCanDoubleJump = false;
             }
 
+        }
+
+        if(Input.GetButtonDown("aButton")){
+            anim.SetBool("Jumping",true);
         }
 
         //Punch Logic
@@ -172,8 +178,8 @@ public class PlayerControlScript : MonoBehaviour
             if(hasDoubleJump){
                 playerCanDoubleJump = true;
             }
-
             onGround = true;
+            anim.SetBool("Jumping",false);
         }
     }
  
