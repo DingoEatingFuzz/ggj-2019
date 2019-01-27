@@ -45,19 +45,16 @@ public class PlayerControlScript : MonoBehaviour
         float horzMovement = Input.GetAxis("horzAxis")*speed;
         Vector2 movement = new Vector2 (horzMovement, 0);
 
-        if(rb2d.velocity.x >= 0.1){
+        if(rb2d.velocity.x > 0.25){
             gina.flipX = false;
-            }
-            else {
-            gina.flipX = true;
-        }
-
-        if(rb2d.velocity.x >= 0.25){
             anim.SetTrigger("GinaWalk");
-        }else if(rb2d.velocity.x <= -0.25){
+        }
+        else if(rb2d.velocity.x < -0.25) {
+            gina.flipX = true;
             anim.SetTrigger("GinaWalk");
         }
         else{anim.SetTrigger("GinaIdle");}
+
 
 
 
@@ -83,8 +80,9 @@ public class PlayerControlScript : MonoBehaviour
         }
 
         //Punch Logic
-        if(Input.GetButtonDown("bButton") && hasHornPunch && !punching){
+        if(Input.GetButtonDown("bButton") ){//&& hasHornPunch && !punching){
            // Punch(0.5f, 1.25f, transform.forward);
+           anim.SetTrigger("GinaPunch");
         }
 
         //Shield Logic
