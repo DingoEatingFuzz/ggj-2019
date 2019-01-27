@@ -68,9 +68,9 @@ public class PlayerControlScript : MonoBehaviour
         if(onGround){
             rb2d.AddForce (movement * speed);
         }else{rb2d.AddForce (movement * (speed/3));}
-        
+
         #endregion
-        
+
         #region Action handling
         //Jumping Logic
         if(Input.GetButtonDown("aButton") && (onGround || (playerCanDoubleJump && hasDoubleJump)))
@@ -185,7 +185,7 @@ public class PlayerControlScript : MonoBehaviour
             anim.SetBool("Jumping",false);
         }
     }
- 
+
     //Check if the object has left the ground
     void OnCollisionExit2D (Collision2D collision)
     {

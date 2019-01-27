@@ -4,9 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameData : MonoBehaviour {
-  public string CurrentScene;
-   
-
   public void GoToScreen(string To, string Exit) {
     Debug.Log("Going to Scene: " + To + ", Exit: " + Exit);
     var currentScene = SceneManager.GetActiveScene();
@@ -23,22 +20,32 @@ public class GameData : MonoBehaviour {
       }
     }
 
-    SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName(To));
-    StartCoroutine(this.SetActive(To));
+    StartCoroutine(this.MovePlayerToScene(To, Exit, player));
+  }
 
-    // SceneManager.MoveGameObjectToScene(player, toScene);
-    this.CurrentScene = To;
+  public IEnumerator MovePlayerToScene(string sceneName, string exit, GameObject player) {
+    // Set the active scene to the new scene
+    yield return null;
+    SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
 
-    // Find the exit game object to position player (e.g., LeftExit for Left)
-    // TODO: Make sure to get the exit in the new current scene, not the scene from before we switched
-    var exit = GameObject.Find(Exit + "Exit");
-    if (exit == null) {
-      Debug.Log("Could not find exit (" + Exit + ")");
+    // Wait 1 frame for ActiveScene to change
+    yield return null;
+
+    SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName(sceneName));
+
+    // Find all exits, since they share names across scenes
+    var allExits = new List<GameObject>(GameObject.FindGameObjectsWithTag("exit"));
+    // The correct exit matches exit name AND scene name
+    var exitObj = allExits.Find(e => e.name == exit + "Exit" && e.scene.name == sceneName);
+    if (exitObj == null) {
+      Debug.Log("Could not find exit (" + exit + ")");
     } else {
-      // Move the player to the exit coordinates
-      Debug.Log("Going from " + player.transform.position + " to " + exit.transform.position);
-      player.transform.position = exit.transform.position;
+      // Move the inner gina object to the exit coordinates
+      player.transform.GetChild(1).position = exitObj.transform.position;
     }
+
+    // Finish coroutine
+    yield break;
   }
 
   public IEnumerator SetActive(string name) {
@@ -53,33 +60,33 @@ public class GameData : MonoBehaviour {
   public class InnerDerp : MonoBehaviour
     {
         public static ScreenGraph Map = new ScreenGraph() {
-                                     { "FrontDoor",
-                                       new ScreenNode(new List<ScreenExit> {
-                                         new ScreenExit { Id = "Left", To = "LivingRoom1", Exit = "Right" },
-                                         new ScreenExit { Id = "Right", To = "LivingRoom2", Exit = "TopLeft" },
-                                       })
-                                     },
-                                     { "LivingRoom1",
-                                       new ScreenNode(new List<ScreenExit> {
-                                         new ScreenExit { Id = "Left", To = "FrontDoor", Exit = "Right" },
-                                         new ScreenExit { Id = "Right", To = "LivingRoom2", Exit = "TopLeft" },
-                                       })
-                                     },
-                                     { "LivingRoom2",
-                                       new ScreenNode(new List<ScreenExit> {
-                                         new ScreenExit { Id = "TopLeft", To = "", Exit = "Right" },
-                                         new ScreenExit { Id = "TopRight", To = "LivingRoom3", Exit = "BottomLeft" },
-                                         new ScreenExit { Id = "BottomLeft", To = "Laundry1", Exit = "Right" },
-                                         new ScreenExit { Id = "BottomRight", To = "Kitchen1", Exit = "BottomLeft" },
-                                       })
-                                     },
-                                     { "LivingRoom3",
-                                       new ScreenNode(new List<ScreenExit> {
-                                         // new ScreenExit { Id = "BottomLeft", To = "CircleKey", Exit = "Right" },
-                                         new ScreenExit { Id = "TopRight", To = "Hallway1", Exit = "Left" },
-                                         // new ScreenExit { Id = "BottomRight", To = "DoubleJump", Exit = "Left" }
-                                       })
-                                     },
+          { "FrontDoor",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Left", To = "LivingRoom1", Exit = "Right" },
+              new ScreenExit { Id = "Right", To = "LivingRoom2", Exit = "TopLeft" },
+            })
+          },
+          { "LivingRoom1",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Left", To = "FrontDoor", Exit = "Right" },
+              new ScreenExit { Id = "Right", To = "LivingRoom2", Exit = "TopLeft" },
+            })
+          },
+          { "LivingRoom2",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "TopLeft", To = "", Exit = "Right" },
+              new ScreenExit { Id = "TopRight", To = "LivingRoom3", Exit = "BottomLeft" },
+              new ScreenExit { Id = "BottomLeft", To = "Laundry1", Exit = "Right" },
+              new ScreenExit { Id = "BottomRight", To = "Kitchen1", Exit = "BottomLeft" },
+            })
+          },
+          { "LivingRoom3",
+            new ScreenNode(new List<ScreenExit> {
+              // new ScreenExit { Id = "BottomLeft", To = "CircleKey", Exit = "Right" },
+              new ScreenExit { Id = "TopRight", To = "Hallway1", Exit = "Left" },
+              // new ScreenExit { Id = "BottomRight", To = "DoubleJump", Exit = "Left" }
+            })
+          },
 
           { "Kitchen1",
             new ScreenNode(new List<ScreenExit> {

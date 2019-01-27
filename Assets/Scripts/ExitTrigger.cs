@@ -24,7 +24,7 @@ public class ExitTrigger : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             PlayerControlScript cs = (PlayerControlScript)collision.gameObject.GetComponent("PlayerControlScript");
-            var sceneName = cs.gameData.CurrentScene;
+            var sceneName = SceneManager.GetActiveScene().name;
 
             Debug.Log("ExitTrigger triggered in " + sceneName);
             var node = GameData.InnerDerp.Map[sceneName];
