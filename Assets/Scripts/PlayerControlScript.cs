@@ -28,6 +28,7 @@ public class PlayerControlScript : MonoBehaviour
     public Animator anim;
     public GameData gameData;
     public bool faceingRight = true;
+    public Vector3 spawnPosition;
 
 
     // Start is called before the first frame update
@@ -139,11 +140,8 @@ public class PlayerControlScript : MonoBehaviour
         }else Debug.Log("Just Touched the ground");
     }
 
-    //This method is where we "kill" the player.
-    //they should flash and then be teleported to the the last EXIT the went through.
     public void playerDeath(){
         StartCoroutine(Flash());
-        //Teleport to the last exit we went through.
     }
 
     IEnumerator ActivateShield(){
@@ -162,6 +160,7 @@ public class PlayerControlScript : MonoBehaviour
         for (int n = 0; n < 5; n++)
         {
             gina.enabled=false;
+            if (n == 0) gameObject.transform.position = spawnPosition;
             yield return new WaitForSecondsRealtime(0.1f);
             gina.enabled = true;
             yield return new WaitForSecondsRealtime(0.1f);
