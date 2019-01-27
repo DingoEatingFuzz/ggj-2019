@@ -80,7 +80,7 @@ public class PlayerControlScript : MonoBehaviour
         }
 
         //Punch Logic
-        if(Input.GetButtonDown("bButton") ){//&& hasHornPunch && !punching){
+        if(Input.GetButtonDown("bButton") && onGround ){//&& hasHornPunch && !punching){
            // Punch(0.5f, 1.25f, transform.forward);
            anim.SetTrigger("GinaPunch");
         }
