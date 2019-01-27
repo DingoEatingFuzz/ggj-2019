@@ -10,7 +10,7 @@ public class PlayerControlScript : MonoBehaviour
     public float speed = 5f;
     //public float rotateSpeed = 100f;
     public float jumpSpeed = 8;
-    private bool onGround = false;
+    //private bool onGround = false;
     public bool hasFirstKey = false;
     public bool hasDoubleJump = false;
     public bool playerCanDoubleJump = false;
@@ -29,6 +29,7 @@ public class PlayerControlScript : MonoBehaviour
     public GameData gameData;
     public bool faceingRight = true;
     public Vector3 spawnPosition;
+    public bool jumping = false;
 
 
     // Start is called before the first frame update
@@ -47,12 +48,11 @@ public class PlayerControlScript : MonoBehaviour
     void FixedUpdate()
     {
         #region movement
-
         float horzMovement = Input.GetAxisRaw("horzAxis")*speed;
         Vector2 movement = new Vector2 (horzMovement, 0);
-        if(onGround){
-            rb2d.AddForce (movement * speed);
-        }else{rb2d.AddForce (movement * (speed));}
+        
+        rb2d.AddForce (movement * speed);
+        
 
         if(Input.GetAxisRaw("horzAxis") == 0){
             rb2d.velocity = new Vector2((rb2d.velocity.x*0.5f),rb2d.velocity.y);
@@ -76,26 +76,44 @@ public class PlayerControlScript : MonoBehaviour
 
         #region Action handling
     
-        //Jumping Logic
-        if(Input.GetButtonDown("aButton") && (onGround || (playerCanDoubleJump && hasDoubleJump)))
-        {
-            Vector3 jumpMovement = new Vector3 (0.0f, 1.0f,0.0f);
-            rb2d.velocity = jumpMovement * jumpSpeed;
+        if(!jumping){
+            anim.SetBool("Jumping",false);
+        }
 
-            if(!onGround){
-                playerCanDoubleJump = false;
+        //Jumping Logic
+        if(Input.GetButtonDown("aButton"))// && (!jumping || (playerCanDoubleJump && hasDoubleJump)))
+        {
+
+            if(!jumping || (playerCanDoubleJump && hasDoubleJump)){
+                Vector3 jumpMovement = new Vector3 (0.0f, 1.0f,0.0f);
+                rb2d.velocity = jumpMovement * jumpSpeed;
+
+                if(jumping && playerCanDoubleJump){
+                    playerCanDoubleJump = false;
+                }
+                anim.SetBool("Jumping",true);
+                jumping = true; 
             }
+
+
+            // Vector3 jumpMovement = new Vector3 (0.0f, 1.0f,0.0f);
+            // rb2d.velocity = jumpMovement * jumpSpeed;
+
+            // if(!onGround){
+            //     playerCanDoubleJump = false;
+            // }
+            // anim.SetBool("Jumping",true);
+            // jumping = true;
 
         }
 
         if(Input.GetButtonDown("aButton")){
-            anim.SetBool("Jumping",true);
+            //anim.SetBool("Jumping",true);
         }
 
         //Punch Logic
-        if(Input.GetButtonDown("bButton")){//} && onGround && hasHornPunch && !punching){
+        if(Input.GetButtonDown("bButton") && !jumping && hasHornPunch && !punching){
            Punch();
-           //ChecklandedOnFloor();
            anim.SetTrigger("GinaPunch");
         }
 
@@ -126,18 +144,15 @@ public class PlayerControlScript : MonoBehaviour
         }
         punching = false;
     }
-    public float distanceTofeet =10f;
     public void ChecklandedOnFloor(){
         RaycastHit2D hit;
         hit = Physics2D.Raycast(transform.position,Vector2.down);
         if(hit.collider.gameObject.CompareTag("Ground") && hit.distance < 2f){
-            Debug.Log("LandedOnGround");
             if(hasDoubleJump){
                 playerCanDoubleJump = true;
             }
-            onGround = true;
-            anim.SetBool("Jumping",false);
-        }else Debug.Log("Just Touched the ground");
+            if(jumping)jumping=false;
+        }
     }
 
     public void playerDeath(){
@@ -213,7 +228,8 @@ public class PlayerControlScript : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
-            onGround = false;
+            
+
         }
     }
 }
