@@ -16,7 +16,7 @@ public class StartScreen : MonoBehaviour
     {
         if (Input.GetButtonDown("start") || Input.GetKeyDown(KeyCode.Return))
         {
-            SceneManager.LoadScene("FrontDoor");
+            SceneManager.LoadScene("Bootstrap");
         }
     }
 }

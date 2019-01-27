@@ -23,6 +23,12 @@ public class PlayerControlScript : MonoBehaviour
     private bool punching = false;
     public SpriteRenderer gina;
     public SpriteRenderer shield;
+    public SpriteRenderer shieldIcon;
+    public SpriteRenderer gloveIcon;
+    public SpriteRenderer featherIcon;
+    public SpriteRenderer key1Icon;
+    public SpriteRenderer key2Icon;
+    public SpriteRenderer key3Icon;
     private int shieldOnTime = 5;
     private int shieldCoolDown = 7;
     public Animator anim;
@@ -39,6 +45,20 @@ public class PlayerControlScript : MonoBehaviour
         gina = gameObject.GetComponent<SpriteRenderer>();
         shield = transform.Find("tempShield").gameObject.GetComponent<SpriteRenderer>();
         shield.enabled = false;
+        shieldIcon = transform.Find("Shield").gameObject.GetComponent<SpriteRenderer>();
+        shieldIcon.enabled = false;
+        gloveIcon = transform.Find("BoxingGlove").gameObject.GetComponent<SpriteRenderer>();
+        gloveIcon.enabled = false;
+        featherIcon = transform.Find("Feather").gameObject.GetComponent<SpriteRenderer>();
+        featherIcon.enabled = false;
+
+        key1Icon = transform.Find("Key1").gameObject.GetComponent<SpriteRenderer>();
+        key1Icon.enabled = false;
+        key2Icon = transform.Find("Key2").gameObject.GetComponent<SpriteRenderer>();
+        key2Icon.enabled = false;
+        key3Icon = transform.Find("Key3").gameObject.GetComponent<SpriteRenderer>();
+        key3Icon.enabled = false;
+
         anim = gameObject.GetComponent<Animator>();
     }
 
@@ -158,28 +178,34 @@ public class PlayerControlScript : MonoBehaviour
     void OnTriggerEnter2D (Collider2D collision){
         if(collision.gameObject.CompareTag("firstKey")){
             hasFirstKey = true;
+            key1Icon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("secondKey")){
             hasSecondKey = true;
+            key2Icon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("thirdKey")){
             hasThirdkey = true;
+            key3Icon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("doubleJumpItem")){
             hasDoubleJump = true;
             playerCanDoubleJump = true;
+            featherIcon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("punchItem")){
             hasHornPunch = true;
+            gloveIcon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("shieldItem")){
             hasShield = true;
             canActivateShield = true;
+            shieldIcon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("enemy") && !shieldIsActive){
