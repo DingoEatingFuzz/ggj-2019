@@ -40,8 +40,9 @@ public class GameData : MonoBehaviour {
     if (exitObj == null) {
       Debug.Log("Could not find exit (" + exit + ")");
     } else {
-      // Move the inner gina object to the exit coordinates
-      player.transform.GetChild(1).position = exitObj.transform.position;
+            // Move the inner gina object to the exit coordinates
+            player.GetComponentInChildren<PlayerControlScript>().spawnPosition = exitObj.transform.position;
+            player.transform.GetChild(1).position = exitObj.transform.position;
     }
 
     // Finish coroutine
