@@ -9,6 +9,9 @@ public class ScreenNode {
 
   public void exit(string exitName) {
     var exit = Exits.Find(e => e.Id == exitName);
+    if (exit == null) {
+      Debug.Log("You idiot " + exitName);
+    }
     GameData.GoToScreen(exit.To, exit.Exit);
   }
 }
