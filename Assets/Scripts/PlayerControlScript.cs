@@ -8,9 +8,7 @@ public class PlayerControlScript : MonoBehaviour
     //Declarations
     public Rigidbody2D rb2d;
     public float speed = 5f;
-    //public float rotateSpeed = 100f;
-    public float jumpSpeed = 5;
-    private bool onGround = false;
+    public float jumpSpeed = 8;
     public bool hasFirstKey = false;
     public bool hasDoubleJump = false;
     public bool playerCanDoubleJump = false;
@@ -23,18 +21,13 @@ public class PlayerControlScript : MonoBehaviour
     private bool punching = false;
     public SpriteRenderer gina;
     public SpriteRenderer shield;
-    public SpriteRenderer shieldIcon;
-    public SpriteRenderer gloveIcon;
-    public SpriteRenderer featherIcon;
-    public SpriteRenderer key1Icon;
-    public SpriteRenderer key2Icon;
-    public SpriteRenderer key3Icon;
     private int shieldOnTime = 5;
     private int shieldCoolDown = 7;
     public Animator anim;
     public GameData gameData;
     public bool faceingRight = true;
     public Vector3 spawnPosition;
+    public bool jumping = false;
 
 
     // Start is called before the first frame update
@@ -46,20 +39,6 @@ public class PlayerControlScript : MonoBehaviour
         gina = gameObject.GetComponent<SpriteRenderer>();
         shield = transform.Find("tempShield").gameObject.GetComponent<SpriteRenderer>();
         shield.enabled = false;
-        shieldIcon = transform.Find("Shield").gameObject.GetComponent<SpriteRenderer>();
-        shieldIcon.enabled = false;
-        gloveIcon = transform.Find("BoxingGlove").gameObject.GetComponent<SpriteRenderer>();
-        gloveIcon.enabled = false;
-        featherIcon = transform.Find("Feather").gameObject.GetComponent<SpriteRenderer>();
-        featherIcon.enabled = false;
-
-        key1Icon = transform.Find("Key1").gameObject.GetComponent<SpriteRenderer>();
-        key1Icon.enabled = false;
-        key2Icon = transform.Find("Key2").gameObject.GetComponent<SpriteRenderer>();
-        key2Icon.enabled = false;
-        key3Icon = transform.Find("Key3").gameObject.GetComponent<SpriteRenderer>();
-        key3Icon.enabled = false;
-
         anim = gameObject.GetComponent<Animator>();
     }
 
@@ -68,14 +47,10 @@ public class PlayerControlScript : MonoBehaviour
     {
         #region movement
         float horzMovement = Input.GetAxisRaw("horzAxis")*speed;
-
         Vector2 movement = new Vector2 (horzMovement, 0);
-
-        //Call the AddForce function of our Rigidbody2D rb2d supplying movement multiplied by speed to move our player.
-        //Slow the movement when in the air.
-        if(onGround){
-            rb2d.AddForce (movement * speed);
-        }else{rb2d.AddForce (movement * (speed));}
+        
+        rb2d.AddForce (movement * speed);
+        
 
         if(Input.GetAxisRaw("horzAxis") == 0){
             rb2d.velocity = new Vector2((rb2d.velocity.x*0.5f),rb2d.velocity.y);
@@ -99,37 +74,39 @@ public class PlayerControlScript : MonoBehaviour
 
         #region Action handling
     
-        //Jumping Logic
-        if(Input.GetButtonDown("aButton") && (onGround || (playerCanDoubleJump && hasDoubleJump)))
-        {
-            Vector3 jumpMovement = new Vector3 (0.0f, 1.0f,0.0f);
-            rb2d.velocity = jumpMovement * jumpSpeed;
-
-            if(!onGround){
-                playerCanDoubleJump = false;
-            }
-
+        if(!jumping){
+            anim.SetBool("Jumping",false);
         }
 
-        if(Input.GetButtonDown("aButton")){
-            anim.SetBool("Jumping",true);
+        //Jumping Logic
+        if(Input.GetButtonDown("aButton"))
+        {
+
+            if(!jumping || (playerCanDoubleJump && hasDoubleJump)){
+                Vector3 jumpMovement = new Vector3 (0.0f, 1.0f,0.0f);
+                rb2d.velocity = jumpMovement * jumpSpeed;
+
+                if(jumping && playerCanDoubleJump){
+                    playerCanDoubleJump = false;
+                }
+                anim.SetBool("Jumping",true);
+                jumping = true; 
+            }
         }
 
         //Punch Logic
-        if(Input.GetButtonDown("bButton") && onGround && hasHornPunch && !punching){
+        if(Input.GetButtonDown("bButton") && !jumping && hasHornPunch && !punching){
            Punch();
            anim.SetTrigger("GinaPunch");
         }
 
         //Shield Logic
         if(Input.GetButtonDown("xButton") && hasShield){
-
             if(canActivateShield){
                 StartCoroutine(ActivateShield());
             }
         }
         #endregion
-    
     }
 
    public void Punch(){ 
@@ -145,6 +122,16 @@ public class PlayerControlScript : MonoBehaviour
           Destroy(hit.collider.gameObject);
         }
         punching = false;
+    }
+    public void ChecklandedOnFloor(){
+        RaycastHit2D hit;
+        hit = Physics2D.Raycast(transform.position,Vector2.down);
+        if(hit.collider.gameObject.CompareTag("Ground") && hit.distance < 2f){
+            if(hasDoubleJump){
+                playerCanDoubleJump = true;
+            }
+            if(jumping)jumping=false;
+        }
     }
 
     public void playerDeath(){
@@ -177,34 +164,28 @@ public class PlayerControlScript : MonoBehaviour
     void OnTriggerEnter2D (Collider2D collision){
         if(collision.gameObject.CompareTag("firstKey")){
             hasFirstKey = true;
-            key1Icon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("secondKey")){
             hasSecondKey = true;
-            key2Icon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("thirdKey")){
             hasThirdkey = true;
-            key3Icon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("doubleJumpItem")){
             hasDoubleJump = true;
             playerCanDoubleJump = true;
-            featherIcon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("punchItem")){
             hasHornPunch = true;
-            gloveIcon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("shieldItem")){
             hasShield = true;
             canActivateShield = true;
-            shieldIcon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("enemy") && !shieldIsActive){
@@ -217,11 +198,7 @@ public class PlayerControlScript : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
-            if(hasDoubleJump){
-                playerCanDoubleJump = true;
-            }
-            onGround = true;
-            anim.SetBool("Jumping",false);
+            ChecklandedOnFloor();
         }
     }
 
@@ -230,7 +207,8 @@ public class PlayerControlScript : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
-            onGround = false;
+            
+
         }
     }
 }
