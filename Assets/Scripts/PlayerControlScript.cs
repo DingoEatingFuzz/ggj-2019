@@ -25,6 +25,7 @@ public class PlayerControlScript : MonoBehaviour
     public SpriteRenderer shield;
     private int shieldOnTime = 5;
     private int shieldCoolDown = 7;
+    public Animator anim;
 
 
     // Start is called before the first frame update
@@ -34,6 +35,7 @@ public class PlayerControlScript : MonoBehaviour
         gina = gameObject.GetComponent<SpriteRenderer>();
         shield = transform.Find("tempShield").gameObject.GetComponent<SpriteRenderer>();
         shield.enabled = false;
+        anim = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -44,13 +46,20 @@ public class PlayerControlScript : MonoBehaviour
         Vector2 movement = new Vector2 (horzMovement, 0);
 
         if(rb2d.velocity.x >= 0.1){
-            //Debug.Log("Gina should be looking right.");
             gina.flipX = false;
             }
             else {
-            //Debug.Log("Gina should be looking left.");    
             gina.flipX = true;
-            }
+        }
+
+        if(rb2d.velocity.x >= 0.25){
+            anim.SetTrigger("GinaWalk");
+        }else if(rb2d.velocity.x <= -0.25){
+            anim.SetTrigger("GinaWalk");
+        }
+        else{anim.SetTrigger("GinaIdle");}
+
+
 
         //Call the AddForce function of our Rigidbody2D rb2d supplying movement multiplied by speed to move our player.
         //Slow the movement when in the air.
@@ -99,9 +108,7 @@ public class PlayerControlScript : MonoBehaviour
     //This method is where we "kill" the player.
     //they should flash and then be teleported to the the last EXIT the went through.
     public void playerDeath(){
-
         StartCoroutine(Flash());
-
         //Teleport to the last exit we went through.
     }
 
@@ -109,14 +116,11 @@ public class PlayerControlScript : MonoBehaviour
         shieldIsActive = true;
         shield.enabled = true;
         canActivateShield = false;
-        Debug.Log("shield on");
         yield return new WaitForSecondsRealtime(shieldOnTime);
-        Debug.Log("shield off");
         shield.enabled = false;
         shieldIsActive = false;
         yield return new WaitForSecondsRealtime(shieldCoolDown);
         canActivateShield = true;
-        Debug.Log("cooldownTime out");
     }
 
     IEnumerator Flash()
