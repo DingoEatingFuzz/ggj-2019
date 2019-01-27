@@ -17,16 +17,23 @@ public class PlayerControlScript : MonoBehaviour
     public bool hasSecondKey = false;
     public bool hasHornPunch = false;
     public bool hasShield = false;
+    public bool shieldIsActive = false;
+    public bool canActivateShield = false;
     public bool hasThirdkey = false;
     private bool punching = false;
-    public SpriteRenderer spriteRender;
+    public SpriteRenderer gina;
+    public SpriteRenderer shield;
+    private int shieldOnTime = 5;
+    private int shieldCoolDown = 7;
 
 
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        spriteRender = GetComponent<SpriteRenderer>();
+        gina = gameObject.GetComponent<SpriteRenderer>();
+        shield = transform.Find("tempShield").gameObject.GetComponent<SpriteRenderer>();
+        shield.enabled = false;
     }
 
     // Update is called once per frame
@@ -38,11 +45,11 @@ public class PlayerControlScript : MonoBehaviour
 
         if(rb2d.velocity.x >= 0.1){
             //Debug.Log("Gina should be looking right.");
-            spriteRender.flipX = false;
+            gina.flipX = false;
             }
             else {
             //Debug.Log("Gina should be looking left.");    
-            spriteRender.flipX = true;
+            gina.flipX = true;
             }
 
         //Call the AddForce function of our Rigidbody2D rb2d supplying movement multiplied by speed to move our player.
@@ -74,6 +81,9 @@ public class PlayerControlScript : MonoBehaviour
         //Shield Logic
         if(Input.GetButtonDown("xButton") && hasShield){
 
+            if(canActivateShield){
+                StartCoroutine(ActivateShield());
+            }
         }
         #endregion
 
@@ -92,19 +102,31 @@ public class PlayerControlScript : MonoBehaviour
 
         StartCoroutine(Flash());
 
+        //Teleport to the last exit we went through.
+    }
 
-
-        //Destroy(gameObject);
+    IEnumerator ActivateShield(){
+        shieldIsActive = true;
+        shield.enabled = true;
+        canActivateShield = false;
+        Debug.Log("shield on");
+        yield return new WaitForSecondsRealtime(shieldOnTime);
+        Debug.Log("shield off");
+        shield.enabled = false;
+        shieldIsActive = false;
+        yield return new WaitForSecondsRealtime(shieldCoolDown);
+        canActivateShield = true;
+        Debug.Log("cooldownTime out");
     }
 
     IEnumerator Flash()
     {
         for (int n = 0; n < 5; n++)
         {
-            spriteRender.enabled=false;
-            yield return new WaitForSeconds(0.1f);
-            spriteRender.enabled = true;
-            yield return new WaitForSeconds(0.1f);
+            gina.enabled=false;
+            yield return new WaitForSecondsRealtime(0.1f);
+            gina.enabled = true;
+            yield return new WaitForSecondsRealtime(0.1f);
         }
     }
 
@@ -132,9 +154,10 @@ public class PlayerControlScript : MonoBehaviour
         }
         if(collision.gameObject.CompareTag("shieldItem")){
             hasShield = true;
+            canActivateShield = true;
             Destroy(collision.gameObject);
         }
-        if(collision.gameObject.CompareTag("enemy")){
+        if(collision.gameObject.CompareTag("enemy") && !shieldIsActive){
             playerDeath();
         }
     }
