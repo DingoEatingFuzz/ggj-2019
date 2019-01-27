@@ -13,8 +13,11 @@ public class ScreenNode {
             Debug.Log("You idiot " + exitName + " -----" );
         }
 
-        var gina = GameObject.Find("Gina");
-        var cs = gina.GetComponentInChildren<PlayerControlScript>();
-        cs.gameData.GoToScreen(exit.To, exit.Exit);
+        if (exit.To != "" && exit.Exit != "")
+        {
+            var gina = GameObject.Find("Gina");
+            var cs = gina.GetComponentInChildren<PlayerControlScript>();
+            cs.gameData.GoToScreen(exit.To, exit.Exit);
+        }
     }
 }

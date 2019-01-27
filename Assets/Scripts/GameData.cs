@@ -83,9 +83,9 @@ public class GameData : MonoBehaviour {
           },
           { "LivingRoom3",
             new ScreenNode(new List<ScreenExit> {
-              // new ScreenExit { Id = "BottomLeft", To = "CircleKey", Exit = "Right" },
+              new ScreenExit { Id = "BottomLeft", To = "", Exit = "Right" },
               new ScreenExit { Id = "TopRight", To = "Hallway1", Exit = "Left" },
-              // new ScreenExit { Id = "BottomRight", To = "DoubleJump", Exit = "Left" }
+              new ScreenExit { Id = "BottomRight", To = "", Exit = "Left" }
             })
           },
 
@@ -93,14 +93,14 @@ public class GameData : MonoBehaviour {
             new ScreenNode(new List<ScreenExit> {
               new ScreenExit { Id = "TopLeft", To = "FamilyRoom1", Exit = "Right" },
               new ScreenExit { Id = "TopRight", To = "Kitchen2", Exit = "TopLeft" },
-              // new ScreenExit { Id = "BottomLeft", To = "Laundry1", Exit = "Right" },
+              new ScreenExit { Id = "BottomLeft", To = "", Exit = "Right" },
             })
           },
           { "Kitchen2",
             new ScreenNode(new List<ScreenExit> {
-              // new ScreenExit { Id = "Topleft", To = "Hallway1", Exit = "Left" },
+              new ScreenExit { Id = "Topleft", To = "", Exit = "Left" },
               new ScreenExit { Id = "TopRight", To = "FamilyRoom1", Exit = "Left" },
-              // new ScreenExit { Id = "BottomLeft", To = "CircleKey", Exit = "Right" },
+              new ScreenExit { Id = "BottomLeft", To = "", Exit = "Right" },
               new ScreenExit { Id = "BottomRight", To = "LivingRoom1", Exit = "Left" }
             })
           },
@@ -108,21 +108,21 @@ public class GameData : MonoBehaviour {
           { "FamilyRoom1",
             new ScreenNode(new List<ScreenExit> {
               new ScreenExit { Id = "Left", To = "FamilyRoom2", Exit = "BottomLeft" },
-              // new ScreenExit { Id = "Right", To = "Kitchen2", Exit = "TopLeft" },
+              new ScreenExit { Id = "Right", To = "", Exit = "TopLeft" },
             })
           },
           { "FamilyRoom2",
             new ScreenNode(new List<ScreenExit> {
               new ScreenExit { Id = "TopRight", To = "Kitchen2", Exit = "BottomLeft" },
-              // new ScreenExit { Id = "BottomLeft", To = "LivingRoom1", Exit = "Left" },
-              // new ScreenExit { Id = "BottomRight", To = "LivingRoom1", Exit = "Left" },
+              new ScreenExit { Id = "BottomLeft", To = "", Exit = "Left" },
+              new ScreenExit { Id = "BottomRight", To = "", Exit = "Left" },
             })
           },
 
 
           { "Hallway1",
             new ScreenNode(new List<ScreenExit> {
-              // new ScreenExit { Id = "Left", To = "", Exit = "" },
+              new ScreenExit { Id = "Left", To = "", Exit = "" },
               new ScreenExit { Id = "Right", To = "Hallway2", Exit = "Left" },
             })
           },
@@ -184,21 +184,21 @@ public class GameData : MonoBehaviour {
           },
           { "Laundry3",
             new ScreenNode(new List<ScreenExit> {
-              new ScreenExit { Id = "Left", To = "Laundry4", Exit = "TopLeft" },
-              // new ScreenExit { Id = "Right", To = "", Exit = "" },
+              new ScreenExit { Id = "Left", To = "Laundry4", Exit = "TopRight" },
+              new ScreenExit { Id = "Right", To = "", Exit = "" },
             })
           },
           { "Laundry4",
             new ScreenNode(new List<ScreenExit> {
               new ScreenExit { Id = "BottomLeft", To = "Garage1", Exit = "TopRight" },
-              // new ScreenExit { Id = "TopRight", To = "LivingRoom3", Exit = "BottomRight" },
+              new ScreenExit { Id = "TopRight", To = "", Exit = "BottomRight" },
             })
           },
 
 
           { "Garage1",
             new ScreenNode(new List<ScreenExit> {
-              // new ScreenExit { Id = "TopRight", To = "", Exit = "" },
+              new ScreenExit { Id = "TopRight", To = "", Exit = "" },
               new ScreenExit { Id = "BottomRight", To = "Garage2", Exit = "Left" },
             })
           },
