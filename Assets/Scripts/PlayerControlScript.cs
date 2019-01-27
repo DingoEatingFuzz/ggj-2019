@@ -8,9 +8,7 @@ public class PlayerControlScript : MonoBehaviour
     //Declarations
     public Rigidbody2D rb2d;
     public float speed = 5f;
-    //public float rotateSpeed = 100f;
     public float jumpSpeed = 8;
-    //private bool onGround = false;
     public bool hasFirstKey = false;
     public bool hasDoubleJump = false;
     public bool playerCanDoubleJump = false;
@@ -81,7 +79,7 @@ public class PlayerControlScript : MonoBehaviour
         }
 
         //Jumping Logic
-        if(Input.GetButtonDown("aButton"))// && (!jumping || (playerCanDoubleJump && hasDoubleJump)))
+        if(Input.GetButtonDown("aButton"))
         {
 
             if(!jumping || (playerCanDoubleJump && hasDoubleJump)){
@@ -94,21 +92,6 @@ public class PlayerControlScript : MonoBehaviour
                 anim.SetBool("Jumping",true);
                 jumping = true; 
             }
-
-
-            // Vector3 jumpMovement = new Vector3 (0.0f, 1.0f,0.0f);
-            // rb2d.velocity = jumpMovement * jumpSpeed;
-
-            // if(!onGround){
-            //     playerCanDoubleJump = false;
-            // }
-            // anim.SetBool("Jumping",true);
-            // jumping = true;
-
-        }
-
-        if(Input.GetButtonDown("aButton")){
-            //anim.SetBool("Jumping",true);
         }
 
         //Punch Logic
@@ -119,25 +102,21 @@ public class PlayerControlScript : MonoBehaviour
 
         //Shield Logic
         if(Input.GetButtonDown("xButton") && hasShield){
-
             if(canActivateShield){
                 StartCoroutine(ActivateShield());
             }
         }
         #endregion
-    
     }
 
    public void Punch(){ 
        punching = true;       
         RaycastHit2D hit;
-        
         if(faceingRight)
         {
             hit = Physics2D.Raycast(transform.position, Vector2.right);
         }
         else hit = Physics2D.Raycast(transform.position, Vector2.left);
-        Debug.Log(hit.collider);
         if (hit.collider != null && hit.distance < .8 && hit.collider.gameObject.CompareTag("breakableWall"))
         {  
           Destroy(hit.collider.gameObject);

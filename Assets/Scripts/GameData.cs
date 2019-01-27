@@ -140,8 +140,8 @@ public class GameData : MonoBehaviour {
           },
           { "Hallway4",
             new ScreenNode(new List<ScreenExit> {
-              new ScreenExit { Id = "Left", To = "Hallway1", Exit = "Left" },
-              new ScreenExit { Id = "Right", To = "LivingRoom3", Exit = "BottomRight" },
+              new ScreenExit { Id = "Left", To = "LivingRoom3", Exit = "BottomRight" },
+              new ScreenExit { Id = "Right", To = "Hallway1", Exit = "Left" },
             })
           },
 
