@@ -9,7 +9,7 @@ public class PlayerControlScript : MonoBehaviour
     public Rigidbody2D rb2d;
     public float speed = 5f;
     //public float rotateSpeed = 100f;
-    public float jumpSpeed = 5;
+    public float jumpSpeed = 8;
     private bool onGround = false;
     public bool hasFirstKey = false;
     public bool hasDoubleJump = false;
@@ -23,12 +23,6 @@ public class PlayerControlScript : MonoBehaviour
     private bool punching = false;
     public SpriteRenderer gina;
     public SpriteRenderer shield;
-    public SpriteRenderer shieldIcon;
-    public SpriteRenderer gloveIcon;
-    public SpriteRenderer featherIcon;
-    public SpriteRenderer key1Icon;
-    public SpriteRenderer key2Icon;
-    public SpriteRenderer key3Icon;
     private int shieldOnTime = 5;
     private int shieldCoolDown = 7;
     public Animator anim;
@@ -45,20 +39,6 @@ public class PlayerControlScript : MonoBehaviour
         gina = gameObject.GetComponent<SpriteRenderer>();
         shield = transform.Find("tempShield").gameObject.GetComponent<SpriteRenderer>();
         shield.enabled = false;
-        shieldIcon = transform.Find("Shield").gameObject.GetComponent<SpriteRenderer>();
-        shieldIcon.enabled = false;
-        gloveIcon = transform.Find("BoxingGlove").gameObject.GetComponent<SpriteRenderer>();
-        gloveIcon.enabled = false;
-        featherIcon = transform.Find("Feather").gameObject.GetComponent<SpriteRenderer>();
-        featherIcon.enabled = false;
-
-        key1Icon = transform.Find("Key1").gameObject.GetComponent<SpriteRenderer>();
-        key1Icon.enabled = false;
-        key2Icon = transform.Find("Key2").gameObject.GetComponent<SpriteRenderer>();
-        key2Icon.enabled = false;
-        key3Icon = transform.Find("Key3").gameObject.GetComponent<SpriteRenderer>();
-        key3Icon.enabled = false;
-
         anim = gameObject.GetComponent<Animator>();
     }
 
@@ -66,12 +46,9 @@ public class PlayerControlScript : MonoBehaviour
     void FixedUpdate()
     {
         #region movement
+
         float horzMovement = Input.GetAxisRaw("horzAxis")*speed;
-
         Vector2 movement = new Vector2 (horzMovement, 0);
-
-        //Call the AddForce function of our Rigidbody2D rb2d supplying movement multiplied by speed to move our player.
-        //Slow the movement when in the air.
         if(onGround){
             rb2d.AddForce (movement * speed);
         }else{rb2d.AddForce (movement * (speed));}
@@ -115,8 +92,9 @@ public class PlayerControlScript : MonoBehaviour
         }
 
         //Punch Logic
-        if(Input.GetButtonDown("bButton") && onGround && hasHornPunch && !punching){
+        if(Input.GetButtonDown("bButton")){//} && onGround && hasHornPunch && !punching){
            Punch();
+           //ChecklandedOnFloor();
            anim.SetTrigger("GinaPunch");
         }
 
@@ -134,16 +112,31 @@ public class PlayerControlScript : MonoBehaviour
    public void Punch(){ 
        punching = true;       
         RaycastHit2D hit;
+        
         if(faceingRight)
         {
             hit = Physics2D.Raycast(transform.position, Vector2.right);
         }
         else hit = Physics2D.Raycast(transform.position, Vector2.left);
+        Debug.Log(hit.collider);
         if (hit.collider != null && hit.distance < .8 && hit.collider.gameObject.CompareTag("breakableWall"))
         {  
           Destroy(hit.collider.gameObject);
         }
         punching = false;
+    }
+    public float distanceTofeet =10f;
+    public void ChecklandedOnFloor(){
+        RaycastHit2D hit;
+        hit = Physics2D.Raycast(transform.position,Vector2.down);
+        if(hit.collider.gameObject.CompareTag("Ground") && hit.distance < 2f){
+            Debug.Log("LandedOnGround");
+            if(hasDoubleJump){
+                playerCanDoubleJump = true;
+            }
+            onGround = true;
+            anim.SetBool("Jumping",false);
+        }else Debug.Log("Just Touched the ground");
     }
 
     //This method is where we "kill" the player.
@@ -178,34 +171,28 @@ public class PlayerControlScript : MonoBehaviour
     void OnTriggerEnter2D (Collider2D collision){
         if(collision.gameObject.CompareTag("firstKey")){
             hasFirstKey = true;
-            key1Icon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("secondKey")){
             hasSecondKey = true;
-            key2Icon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("thirdKey")){
             hasThirdkey = true;
-            key3Icon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("doubleJumpItem")){
             hasDoubleJump = true;
             playerCanDoubleJump = true;
-            featherIcon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("punchItem")){
             hasHornPunch = true;
-            gloveIcon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("shieldItem")){
             hasShield = true;
             canActivateShield = true;
-            shieldIcon.enabled = true;
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("enemy") && !shieldIsActive){
@@ -218,11 +205,7 @@ public class PlayerControlScript : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Ground"))
         {
-            if(hasDoubleJump){
-                playerCanDoubleJump = true;
-            }
-            onGround = true;
-            anim.SetBool("Jumping",false);
+            ChecklandedOnFloor();
         }
     }
 
