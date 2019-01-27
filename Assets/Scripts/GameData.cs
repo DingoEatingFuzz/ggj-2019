@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameData : MonoBehaviour {
+  static public string CurrentScene;
   static public ScreenGraph Map = new ScreenGraph() {
     { "FrontDoor",
       new ScreenNode(new List<ScreenExit> {
@@ -19,7 +20,7 @@ public class GameData : MonoBehaviour {
     },
     { "LivingRoom2",
       new ScreenNode(new List<ScreenExit> {
-        // new ScreenExit { Id = "TopLeft", To = "", Exit = "Right" },
+        new ScreenExit { Id = "TopLeft", To = "", Exit = "Right" },
         new ScreenExit { Id = "TopRight", To = "LivingRoom3", Exit = "BottomLeft" },
         new ScreenExit { Id = "BottomLeft", To = "Laundry1", Exit = "Right" },
         new ScreenExit { Id = "BottomRight", To = "Kitchen1", Exit = "BottomLeft" },
@@ -160,20 +161,44 @@ public class GameData : MonoBehaviour {
   };
 
   static public void GoToScreen(string To, string Exit) {
+    Debug.Log("Going to Scene: " + To + ", Exit: " + Exit);
     var currentScene = SceneManager.GetActiveScene();
     var node = GameData.Map[To];
     var player = GameObject.Find("Gina");
 
-    SceneManager.LoadScene(To, LoadSceneMode.Additive);
+    var toScene = SceneManager.GetSceneByName(To);
+    if (!toScene.isLoaded) {
+      try {
+        SceneManager.LoadScene(To, LoadSceneMode.Additive);
+      } catch {
+        Debug.Log("Leaving early due to no next scene");
+        return;
+      }
+    }
+
     SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName(To));
 
+    // SceneManager.MoveGameObjectToScene(player, toScene);
+    GameData.CurrentScene = To;
+
     // Find the exit game object to position player (e.g., LeftExit for Left)
+    // TODO: Make sure to get the exit in the new current scene, not the scene from before we switched
     var exit = GameObject.Find(Exit + "Exit");
+    if (exit == null) {
+      Debug.Log("Could not find exit (" + Exit + ")");
+    } else {
+      // Move the player to the exit coordinates
+      Debug.Log("Going from " + player.transform.position + " to " + exit.transform.position);
+      player.transform.position = exit.transform.position;
+    }
+  }
 
-    // Move the player to the exit coordinates
-    player.transform.position = exit.transform.position;
-
-    // Maybe unload scenes? It's not necessary, but it's probably good for memory at some point
-    //SceneManager.UnloadSceneAsync(currentScene);
+  static public IEnumerator SetActive(string name) {
+    // Wait 1 frame
+    yield return null;
+    // Activate scene
+    SceneManager.SetActiveScene(SceneManager.GetSceneByName(name));
+    // Finish coroutine
+    yield break;
   }
 }
