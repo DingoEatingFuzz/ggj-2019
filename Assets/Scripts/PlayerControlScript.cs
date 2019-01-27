@@ -41,7 +41,6 @@ public class PlayerControlScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Debug.Log("started player");
         gameData = gameObject.AddComponent<GameData>();
         rb2d = GetComponent<Rigidbody2D>();
         gina = gameObject.GetComponent<SpriteRenderer>();
@@ -223,7 +222,6 @@ public class PlayerControlScript : MonoBehaviour
         if (collision.gameObject.name == "FrontDoor")
         {
             var doorKeys = collision.gameObject.GetComponentsInChildren<SpriteRenderer>();
-            Debug.Log("door keys: " + doorKeys.Length + " :: " + doorKeys[1] + "--" + doorKeys[2]);
             if (hasFirstKey)
             {
                 doorKeys[1].enabled = true;
