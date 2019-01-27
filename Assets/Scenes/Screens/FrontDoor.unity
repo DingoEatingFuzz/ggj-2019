@@ -182,7 +182,7 @@ PrefabInstance:
     - target: {fileID: 8262264170941133244, guid: cae17856f2d5bf44298bdadcd453f210,
         type: 3}
       propertyPath: m_Name
-      value: Right
+      value: RightDoor
       objectReference: {fileID: 0}
     - target: {fileID: 8262264170941133233, guid: cae17856f2d5bf44298bdadcd453f210,
         type: 3}
