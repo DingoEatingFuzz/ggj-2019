@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 707570893}
   m_Layer: 0
   m_Name: testBadGuy
-  m_TagString: enemy
+  m_TagString: breakableWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -416,8 +416,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 707570892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.85384, y: -4.908449, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -11.85384, y: -2.642, z: 0}
+  m_LocalScale: {x: 1, y: 5.533, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -932,6 +932,11 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1472206050}
+    - target: {fileID: 3762302916473651731, guid: ebfc8ddcae4bc5343937d2003ce51337,
+        type: 3}
+      propertyPath: hasHornPunch
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebfc8ddcae4bc5343937d2003ce51337, type: 3}
 --- !u!95 &1472206050 stripped

@@ -27,6 +27,7 @@ public class PlayerControlScript : MonoBehaviour
     private int shieldCoolDown = 7;
     public Animator anim;
     public GameData gameData;
+    public bool faceingRight = true;
 
 
     // Start is called before the first frame update
@@ -51,11 +52,13 @@ public class PlayerControlScript : MonoBehaviour
         if(rb2d.velocity.x > 0.25)
         {
             gina.flipX = false;
+            faceingRight = true;
             anim.SetTrigger("GinaWalk");
         }
         else if(rb2d.velocity.x < -0.25) 
         {
             gina.flipX = true;
+            faceingRight = false;
             anim.SetTrigger("GinaWalk");
         }
         else anim.SetTrigger("GinaIdle");
@@ -72,6 +75,7 @@ public class PlayerControlScript : MonoBehaviour
         #endregion
         
         #region Action handling
+    
         //Jumping Logic
         if(Input.GetButtonDown("aButton") && (onGround || (playerCanDoubleJump && hasDoubleJump)))
         {
@@ -90,7 +94,7 @@ public class PlayerControlScript : MonoBehaviour
 
         //Punch Logic
         if(Input.GetButtonDown("bButton") && onGround ){//&& hasHornPunch && !punching){
-           // Punch(0.5f, 1.25f, transform.forward);
+           Punch();
            anim.SetTrigger("GinaPunch");
         }
 
@@ -102,14 +106,20 @@ public class PlayerControlScript : MonoBehaviour
             }
         }
         #endregion
-
+    
     }
 
-   public void Punch(float time, float distance, Vector3 direction){
-        var origin = transform.position;
-        var offset = transform.right * 1.13f;
-        var hits = new HashSet<RaycastHit2D>();
-
+   public void Punch(){        
+        RaycastHit2D hit;
+        if(faceingRight)
+        {
+            hit = Physics2D.Raycast(transform.position, Vector2.right);
+        }
+        else hit = Physics2D.Raycast(transform.position, Vector2.left);
+        if (hit.collider != null && hit.distance < .8 && hit.collider.gameObject.CompareTag("breakableWall"))
+        {  
+          Destroy(hit.collider.gameObject);
+        }
     }
 
     //This method is where we "kill" the player.

@@ -12,6 +12,7 @@ TagManager:
   - punchItem
   - shieldItem
   - enemy
+  - breakableWall
   layers:
   - Default
   - TransparentFX
