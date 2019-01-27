@@ -93,7 +93,7 @@ public class PlayerControlScript : MonoBehaviour
         }
 
         //Punch Logic
-        if(Input.GetButtonDown("bButton") && onGround ){//&& hasHornPunch && !punching){
+        if(Input.GetButtonDown("bButton") && onGround && hasHornPunch && !punching){
            Punch();
            anim.SetTrigger("GinaPunch");
         }
@@ -109,7 +109,8 @@ public class PlayerControlScript : MonoBehaviour
     
     }
 
-   public void Punch(){        
+   public void Punch(){ 
+       punching = true;       
         RaycastHit2D hit;
         if(faceingRight)
         {
@@ -120,6 +121,7 @@ public class PlayerControlScript : MonoBehaviour
         {  
           Destroy(hit.collider.gameObject);
         }
+        punching = false;
     }
 
     //This method is where we "kill" the player.
