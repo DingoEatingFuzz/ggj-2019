@@ -12,6 +12,7 @@ TagManager:
   - punchItem
   - shieldItem
   - enemy
+  - exit
   - breakableWall
   layers:
   - Default
