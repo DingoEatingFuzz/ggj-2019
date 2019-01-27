@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 139132352}
   - component: {fileID: 139132353}
   m_Layer: 0
-  m_Name: StarKey
+  m_Name: Key2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,7 +241,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139132351}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -523,7 +523,7 @@ GameObject:
   - component: {fileID: 1134983474}
   - component: {fileID: 1134983475}
   m_Layer: 0
-  m_Name: HeartKey
+  m_Name: Key3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -550,7 +550,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134983473}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -962,7 +962,7 @@ GameObject:
   - component: {fileID: 1903373718}
   - component: {fileID: 1903373719}
   m_Layer: 0
-  m_Name: CircleKey
+  m_Name: Key1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -989,7 +989,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1903373717}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
