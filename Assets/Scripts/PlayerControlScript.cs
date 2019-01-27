@@ -7,9 +7,9 @@ public class PlayerControlScript : MonoBehaviour
 
     //Declarations
     public Rigidbody2D rb2d;
-    public float speed = .05F;
-    public float rotateSpeed = 100f;
-    public float jumpSpeed = 3;
+    public float speed = 5f;
+    //public float rotateSpeed = 100f;
+    public float jumpSpeed = 5;
     private bool onGround = false;
     public bool hasFirstKey = false;
     public bool hasDoubleJump = false;
@@ -34,6 +34,7 @@ public class PlayerControlScript : MonoBehaviour
     public Animator anim;
     public GameData gameData;
     public bool faceingRight = true;
+    public Vector3 spawnPosition;
 
 
     // Start is called before the first frame update
@@ -66,8 +67,19 @@ public class PlayerControlScript : MonoBehaviour
     void FixedUpdate()
     {
         #region movement
-        float horzMovement = Input.GetAxis("horzAxis")*speed;
+        float horzMovement = Input.GetAxisRaw("horzAxis")*speed;
+
         Vector2 movement = new Vector2 (horzMovement, 0);
+
+        //Call the AddForce function of our Rigidbody2D rb2d supplying movement multiplied by speed to move our player.
+        //Slow the movement when in the air.
+        if(onGround){
+            rb2d.AddForce (movement * speed);
+        }else{rb2d.AddForce (movement * (speed));}
+
+        if(Input.GetAxisRaw("horzAxis") == 0){
+            rb2d.velocity = new Vector2((rb2d.velocity.x*0.5f),rb2d.velocity.y);
+        }
 
         if(rb2d.velocity.x > 0.25)
         {
@@ -82,15 +94,6 @@ public class PlayerControlScript : MonoBehaviour
             anim.SetTrigger("GinaWalk");
         }
         else anim.SetTrigger("GinaIdle");
-
-
-
-
-        //Call the AddForce function of our Rigidbody2D rb2d supplying movement multiplied by speed to move our player.
-        //Slow the movement when in the air.
-        if(onGround){
-            rb2d.AddForce (movement * speed);
-        }else{rb2d.AddForce (movement * (speed/3));}
 
         #endregion
 
@@ -144,11 +147,8 @@ public class PlayerControlScript : MonoBehaviour
         punching = false;
     }
 
-    //This method is where we "kill" the player.
-    //they should flash and then be teleported to the the last EXIT the went through.
     public void playerDeath(){
         StartCoroutine(Flash());
-        //Teleport to the last exit we went through.
     }
 
     IEnumerator ActivateShield(){
@@ -167,6 +167,7 @@ public class PlayerControlScript : MonoBehaviour
         for (int n = 0; n < 5; n++)
         {
             gina.enabled=false;
+            if (n == 0) gameObject.transform.position = spawnPosition;
             yield return new WaitForSecondsRealtime(0.1f);
             gina.enabled = true;
             yield return new WaitForSecondsRealtime(0.1f);

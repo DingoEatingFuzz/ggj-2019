@@ -9,9 +9,11 @@ public class Bootstrap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var player = Instantiate(gina, new Vector3(-10, 2, 0), new Quaternion());
+        var startPos = new Vector3(-10, 2, 0);
+        var player = Instantiate(gina, startPos, new Quaternion());
         player.name = "Gina";
         PlayerControlScript cs = (PlayerControlScript)player.GetComponentInChildren(typeof(PlayerControlScript));
+        cs.spawnPosition = startPos;
         SceneManager.LoadScene("FrontDoor", LoadSceneMode.Additive);
 
         Debug.Log("script: " + cs);
