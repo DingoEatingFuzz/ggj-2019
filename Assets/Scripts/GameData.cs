@@ -4,166 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameData : MonoBehaviour {
-  static public string CurrentScene;
-  static public ScreenGraph Map = new ScreenGraph() {
-    { "FrontDoor",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Left", To = "LivingRoom1", Exit = "Right" },
-        new ScreenExit { Id = "Right", To = "LivingRoom2", Exit = "TopLeft" },
-      })
-    },
-    { "LivingRoom1",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Left", To = "FrontDoor", Exit = "Right" },
-        new ScreenExit { Id = "Right", To = "LivingRoom2", Exit = "TopLeft" },
-      })
-    },
-    { "LivingRoom2",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "TopLeft", To = "", Exit = "Right" },
-        new ScreenExit { Id = "TopRight", To = "LivingRoom3", Exit = "BottomLeft" },
-        new ScreenExit { Id = "BottomLeft", To = "Laundry1", Exit = "Right" },
-        new ScreenExit { Id = "BottomRight", To = "Kitchen1", Exit = "BottomLeft" },
-      })
-    },
-    { "LivingRoom3",
-      new ScreenNode(new List<ScreenExit> {
-        // new ScreenExit { Id = "BottomLeft", To = "CircleKey", Exit = "Right" },
-        new ScreenExit { Id = "TopRight", To = "Hallway1", Exit = "Left" },
-        // new ScreenExit { Id = "BottomRight", To = "DoubleJump", Exit = "Left" }
-      })
-    },
+  public string CurrentScene;
+   
 
-    { "Kitchen1",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "TopLeft", To = "FamilyRoom1", Exit = "Right" },
-        new ScreenExit { Id = "TopRight", To = "Kitchen2", Exit = "TopLeft" },
-        // new ScreenExit { Id = "BottomLeft", To = "Laundry1", Exit = "Right" },
-      })
-    },
-    { "Kitchen2",
-      new ScreenNode(new List<ScreenExit> {
-        // new ScreenExit { Id = "Topleft", To = "Hallway1", Exit = "Left" },
-        new ScreenExit { Id = "TopRight", To = "FamilyRoom1", Exit = "Left" },
-        // new ScreenExit { Id = "BottomLeft", To = "CircleKey", Exit = "Right" },
-        new ScreenExit { Id = "BottomRight", To = "LivingRoom1", Exit = "Left" }
-      })
-    },
-
-    { "FamilyRoom1",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Left", To = "FamilyRoom2", Exit = "BottomLeft" },
-        // new ScreenExit { Id = "Right", To = "Kitchen2", Exit = "TopLeft" },
-      })
-    },
-    { "FamilyRoom2",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "TopRight", To = "Kitchen2", Exit = "BottomLeft" },
-        // new ScreenExit { Id = "BottomLeft", To = "LivingRoom1", Exit = "Left" },
-        // new ScreenExit { Id = "BottomRight", To = "LivingRoom1", Exit = "Left" },
-      })
-    },
-
-
-    { "Hallway1",
-      new ScreenNode(new List<ScreenExit> {
-        // new ScreenExit { Id = "Left", To = "", Exit = "" },
-        new ScreenExit { Id = "Right", To = "Hallway2", Exit = "Left" },
-      })
-    },
-    { "Hallway2",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Left", To = "MBedroom1", Exit = "Right" },
-        new ScreenExit { Id = "Right", To = "Hallway3", Exit = "Left" },
-      })
-    },
-    { "Hallway3",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Left", To = "Bedroom1", Exit = "Right" },
-        new ScreenExit { Id = "Right", To = "Hallway4", Exit = "Left" },
-      })
-    },
-    { "Hallway4",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Left", To = "Hallway1", Exit = "Left" },
-        new ScreenExit { Id = "Right", To = "LivingRoom3", Exit = "BottomRight" },
-      })
-    },
-
-    { "Bedroom1",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Left", To = "Bedroom2", Exit = "Right" },
-        new ScreenExit { Id = "Right", To = "Hallway1", Exit = "Left" },
-      })
-    },
-    { "Bedroom2",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Right", To = "Hallway1", Exit = "Left" },
-      })
-    },
-
-    { "MBedroom1",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Left", To = "MBedroom2", Exit = "Right" },
-        new ScreenExit { Id = "Right", To = "Hallway1", Exit = "Left" },
-      })
-    },
-    { "MBedroom2",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Right", To = "Hallway1", Exit = "Left" },
-      })
-    },
-
-
-    { "Laundry1",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Left", To = "Laundry1", Exit = "Right" },
-        new ScreenExit { Id = "Right", To = "Laundry2", Exit = "Left" },
-      })
-    },
-    { "Laundry2",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Left", To = "Laundry3", Exit = "Right" },
-        new ScreenExit { Id = "Right", To = "Laundry2", Exit = "Left" },
-      })
-    },
-    { "Laundry3",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Left", To = "Laundry4", Exit = "TopLeft" },
-        // new ScreenExit { Id = "Right", To = "", Exit = "" },
-      })
-    },
-    { "Laundry4",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "BottomLeft", To = "Garage1", Exit = "TopRight" },
-        // new ScreenExit { Id = "TopRight", To = "LivingRoom3", Exit = "BottomRight" },
-      })
-    },
-
-
-    { "Garage1",
-      new ScreenNode(new List<ScreenExit> {
-        // new ScreenExit { Id = "TopRight", To = "", Exit = "" },
-        new ScreenExit { Id = "BottomRight", To = "Garage2", Exit = "Left" },
-      })
-    },
-    { "Garage2",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Left", To = "FamilyRoom2", Exit = "BottomRight" },
-        new ScreenExit { Id = "Right", To = "Garage3", Exit = "Left" },
-      })
-    },
-    { "Garage3",
-      new ScreenNode(new List<ScreenExit> {
-        new ScreenExit { Id = "Left", To = "Garage2", Exit = "Right" },
-      })
-    },
-  };
-
-  static public void GoToScreen(string To, string Exit) {
+  public void GoToScreen(string To, string Exit) {
     Debug.Log("Going to Scene: " + To + ", Exit: " + Exit);
     var currentScene = SceneManager.GetActiveScene();
-    var node = GameData.Map[To];
+    var node = InnerDerp.Map[To];
     var player = GameObject.Find("Gina");
 
     var toScene = SceneManager.GetSceneByName(To);
@@ -177,9 +24,10 @@ public class GameData : MonoBehaviour {
     }
 
     SceneManager.MoveGameObjectToScene(player, SceneManager.GetSceneByName(To));
+    StartCoroutine(this.SetActive(To));
 
     // SceneManager.MoveGameObjectToScene(player, toScene);
-    GameData.CurrentScene = To;
+    this.CurrentScene = To;
 
     // Find the exit game object to position player (e.g., LeftExit for Left)
     // TODO: Make sure to get the exit in the new current scene, not the scene from before we switched
@@ -193,7 +41,7 @@ public class GameData : MonoBehaviour {
     }
   }
 
-  static public IEnumerator SetActive(string name) {
+  public IEnumerator SetActive(string name) {
     // Wait 1 frame
     yield return null;
     // Activate scene
@@ -201,4 +49,162 @@ public class GameData : MonoBehaviour {
     // Finish coroutine
     yield break;
   }
+
+  public class InnerDerp : MonoBehaviour
+    {
+        public static ScreenGraph Map = new ScreenGraph() {
+                                     { "FrontDoor",
+                                       new ScreenNode(new List<ScreenExit> {
+                                         new ScreenExit { Id = "Left", To = "LivingRoom1", Exit = "Right" },
+                                         new ScreenExit { Id = "Right", To = "LivingRoom2", Exit = "TopLeft" },
+                                       })
+                                     },
+                                     { "LivingRoom1",
+                                       new ScreenNode(new List<ScreenExit> {
+                                         new ScreenExit { Id = "Left", To = "FrontDoor", Exit = "Right" },
+                                         new ScreenExit { Id = "Right", To = "LivingRoom2", Exit = "TopLeft" },
+                                       })
+                                     },
+                                     { "LivingRoom2",
+                                       new ScreenNode(new List<ScreenExit> {
+                                         new ScreenExit { Id = "TopLeft", To = "", Exit = "Right" },
+                                         new ScreenExit { Id = "TopRight", To = "LivingRoom3", Exit = "BottomLeft" },
+                                         new ScreenExit { Id = "BottomLeft", To = "Laundry1", Exit = "Right" },
+                                         new ScreenExit { Id = "BottomRight", To = "Kitchen1", Exit = "BottomLeft" },
+                                       })
+                                     },
+                                     { "LivingRoom3",
+                                       new ScreenNode(new List<ScreenExit> {
+                                         // new ScreenExit { Id = "BottomLeft", To = "CircleKey", Exit = "Right" },
+                                         new ScreenExit { Id = "TopRight", To = "Hallway1", Exit = "Left" },
+                                         // new ScreenExit { Id = "BottomRight", To = "DoubleJump", Exit = "Left" }
+                                       })
+                                     },
+
+          { "Kitchen1",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "TopLeft", To = "FamilyRoom1", Exit = "Right" },
+              new ScreenExit { Id = "TopRight", To = "Kitchen2", Exit = "TopLeft" },
+              // new ScreenExit { Id = "BottomLeft", To = "Laundry1", Exit = "Right" },
+            })
+          },
+          { "Kitchen2",
+            new ScreenNode(new List<ScreenExit> {
+              // new ScreenExit { Id = "Topleft", To = "Hallway1", Exit = "Left" },
+              new ScreenExit { Id = "TopRight", To = "FamilyRoom1", Exit = "Left" },
+              // new ScreenExit { Id = "BottomLeft", To = "CircleKey", Exit = "Right" },
+              new ScreenExit { Id = "BottomRight", To = "LivingRoom1", Exit = "Left" }
+            })
+          },
+
+          { "FamilyRoom1",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Left", To = "FamilyRoom2", Exit = "BottomLeft" },
+              // new ScreenExit { Id = "Right", To = "Kitchen2", Exit = "TopLeft" },
+            })
+          },
+          { "FamilyRoom2",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "TopRight", To = "Kitchen2", Exit = "BottomLeft" },
+              // new ScreenExit { Id = "BottomLeft", To = "LivingRoom1", Exit = "Left" },
+              // new ScreenExit { Id = "BottomRight", To = "LivingRoom1", Exit = "Left" },
+            })
+          },
+
+
+          { "Hallway1",
+            new ScreenNode(new List<ScreenExit> {
+              // new ScreenExit { Id = "Left", To = "", Exit = "" },
+              new ScreenExit { Id = "Right", To = "Hallway2", Exit = "Left" },
+            })
+          },
+          { "Hallway2",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Left", To = "MBedroom1", Exit = "Right" },
+              new ScreenExit { Id = "Right", To = "Hallway3", Exit = "Left" },
+            })
+          },
+          { "Hallway3",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Left", To = "Bedroom1", Exit = "Right" },
+              new ScreenExit { Id = "Right", To = "Hallway4", Exit = "Left" },
+            })
+          },
+          { "Hallway4",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Left", To = "Hallway1", Exit = "Left" },
+              new ScreenExit { Id = "Right", To = "LivingRoom3", Exit = "BottomRight" },
+            })
+          },
+
+          { "Bedroom1",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Left", To = "Bedroom2", Exit = "Right" },
+              new ScreenExit { Id = "Right", To = "Hallway1", Exit = "Left" },
+            })
+          },
+          { "Bedroom2",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Right", To = "Hallway1", Exit = "Left" },
+            })
+          },
+
+          { "MBedroom1",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Left", To = "MBedroom2", Exit = "Right" },
+              new ScreenExit { Id = "Right", To = "Hallway1", Exit = "Left" },
+            })
+          },
+          { "MBedroom2",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Right", To = "Hallway1", Exit = "Left" },
+            })
+          },
+
+
+          { "Laundry1",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Left", To = "Laundry1", Exit = "Right" },
+              new ScreenExit { Id = "Right", To = "Laundry2", Exit = "Left" },
+            })
+          },
+          { "Laundry2",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Left", To = "Laundry3", Exit = "Right" },
+              new ScreenExit { Id = "Right", To = "Laundry2", Exit = "Left" },
+            })
+          },
+          { "Laundry3",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Left", To = "Laundry4", Exit = "TopLeft" },
+              // new ScreenExit { Id = "Right", To = "", Exit = "" },
+            })
+          },
+          { "Laundry4",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "BottomLeft", To = "Garage1", Exit = "TopRight" },
+              // new ScreenExit { Id = "TopRight", To = "LivingRoom3", Exit = "BottomRight" },
+            })
+          },
+
+
+          { "Garage1",
+            new ScreenNode(new List<ScreenExit> {
+              // new ScreenExit { Id = "TopRight", To = "", Exit = "" },
+              new ScreenExit { Id = "BottomRight", To = "Garage2", Exit = "Left" },
+            })
+          },
+          { "Garage2",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Left", To = "FamilyRoom2", Exit = "BottomRight" },
+              new ScreenExit { Id = "Right", To = "Garage3", Exit = "Left" },
+            })
+          },
+          { "Garage3",
+            new ScreenNode(new List<ScreenExit> {
+              new ScreenExit { Id = "Left", To = "Garage2", Exit = "Right" },
+            })
+          },
+        };
+    }
 }
