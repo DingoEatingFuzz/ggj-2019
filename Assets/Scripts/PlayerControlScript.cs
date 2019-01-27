@@ -26,11 +26,14 @@ public class PlayerControlScript : MonoBehaviour
     private int shieldOnTime = 5;
     private int shieldCoolDown = 7;
     public Animator anim;
+    public GameData gameData;
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        Debug.Log("started player");
+        gameData = gameObject.AddComponent<GameData>();
         rb2d = GetComponent<Rigidbody2D>();
         gina = gameObject.GetComponent<SpriteRenderer>();
         shield = transform.Find("tempShield").gameObject.GetComponent<SpriteRenderer>();

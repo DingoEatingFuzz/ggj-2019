@@ -10,8 +10,10 @@ public class ScreenNode {
   public void exit(string exitName) {
     var exit = Exits.Find(e => e.Id == exitName);
     if (exit == null) {
-      Debug.Log("You idiot " + exitName);
+      Debug.Log("You idiot " + exitName + " -----" );
     }
-    GameData.GoToScreen(exit.To, exit.Exit);
+      PlayerControlScript cs = (PlayerControlScript) GameObject.Find("Gina").GetComponent("PlayerControlScript");
+      cs.gameData.GoToScreen(exit.To, exit.Exit);
+
   }
 }
