@@ -13,6 +13,7 @@ TagManager:
   - shieldItem
   - enemy
   - exit
+  - breakableWall
   layers:
   - Default
   - TransparentFX
