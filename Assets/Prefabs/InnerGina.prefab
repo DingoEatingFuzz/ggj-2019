@@ -90,7 +90,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 85ee9dcb5f96d39469965024a1634b1c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -140,7 +140,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.14, y: 0.36}
+    oldSize: {x: 0.875, y: 2.25}
     newSize: {x: 0.14, y: 0.36}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -164,3 +164,25 @@ MonoBehaviour:
   rb2d: {fileID: 0}
   speed: 5
   jumpSpeed: 5
+  hasFirstKey: 0
+  hasDoubleJump: 0
+  playerCanDoubleJump: 0
+  hasSecondKey: 0
+  hasHornPunch: 0
+  hasShield: 0
+  shieldIsActive: 0
+  canActivateShield: 0
+  hasThirdkey: 0
+  gina: {fileID: 0}
+  shield: {fileID: 0}
+  shieldIcon: {fileID: 0}
+  gloveIcon: {fileID: 0}
+  featherIcon: {fileID: 0}
+  key1Icon: {fileID: 0}
+  key2Icon: {fileID: 0}
+  key3Icon: {fileID: 0}
+  anim: {fileID: 0}
+  gameData: {fileID: 0}
+  faceingRight: 1
+  spawnPosition: {x: 0, y: 0, z: 0}
+  jumping: 0
