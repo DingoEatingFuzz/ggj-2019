@@ -174,6 +174,7 @@ public class PlayerControlScript : MonoBehaviour
 
     IEnumerator Flash()
     {
+        rb2d.velocity = new Vector2(0,0);
         for (int n = 0; n < 5; n++)
         {
             gina.enabled=false;
