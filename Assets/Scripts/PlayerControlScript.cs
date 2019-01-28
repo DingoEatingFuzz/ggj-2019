@@ -64,7 +64,47 @@ public class PlayerControlScript : MonoBehaviour
 
         anim = gameObject.GetComponent<Animator>();
     }
+    // Fixing Nick and Michael's HORRIBLE Code
+    void Update()
+    {
+        if (Input.GetAxisRaw("horzAxis") == 0)
+        {
+            rb2d.velocity = new Vector2((rb2d.velocity.x * 0.5f), rb2d.velocity.y);
+        }
 
+        if (Input.GetButtonDown("aButton"))
+        {
+
+            if (!jumping || (playerCanDoubleJump && hasDoubleJump))
+            {
+                Vector3 jumpMovement = new Vector3(0.0f, 1.0f, 0.0f);
+                rb2d.velocity = jumpMovement * jumpSpeed;
+
+                if (jumping && playerCanDoubleJump)
+                {
+                    playerCanDoubleJump = false;
+                }
+                anim.SetBool("Jumping", true);
+                jumping = true;
+            }
+        }
+
+        //Punch Logic
+        if (Input.GetButtonDown("bButton") && !jumping && hasHornPunch && !punching)
+        {
+            Punch();
+            anim.SetTrigger("GinaPunch");
+        }
+
+        //Shield Logic
+        if (Input.GetButtonDown("xButton") && hasShield)
+        {
+            if (canActivateShield)
+            {
+                StartCoroutine(ActivateShield());
+            }
+        }
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -73,11 +113,6 @@ public class PlayerControlScript : MonoBehaviour
         Vector2 movement = new Vector2 (horzMovement, 0);
         
         rb2d.AddForce (movement * speed);
-        
-
-        if(Input.GetAxisRaw("horzAxis") == 0){
-            rb2d.velocity = new Vector2((rb2d.velocity.x*0.5f),rb2d.velocity.y);
-        }
 
         if(rb2d.velocity.x > 0.25)
         {
@@ -99,35 +134,6 @@ public class PlayerControlScript : MonoBehaviour
     
         if(!jumping){
             anim.SetBool("Jumping",false);
-        }
-
-        //Jumping Logic
-        if(Input.GetButtonDown("aButton"))
-        {
-
-            if(!jumping || (playerCanDoubleJump && hasDoubleJump)){
-                Vector3 jumpMovement = new Vector3 (0.0f, 1.0f,0.0f);
-                rb2d.velocity = jumpMovement * jumpSpeed;
-
-                if(jumping && playerCanDoubleJump){
-                    playerCanDoubleJump = false;
-                }
-                anim.SetBool("Jumping",true);
-                jumping = true; 
-            }
-        }
-
-        //Punch Logic
-        if(Input.GetButtonDown("bButton") && !jumping && hasHornPunch && !punching){
-           Punch();
-           anim.SetTrigger("GinaPunch");
-        }
-
-        //Shield Logic
-        if(Input.GetButtonDown("xButton") && hasShield){
-            if(canActivateShield){
-                StartCoroutine(ActivateShield());
-            }
         }
         #endregion
     }
