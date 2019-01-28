@@ -148,7 +148,7 @@ public class PlayerControlScript : MonoBehaviour
     public void ChecklandedOnFloor(){
         RaycastHit2D hit;
         hit = Physics2D.Raycast(transform.position,Vector2.down);
-        if(hit.collider.gameObject.CompareTag("Ground") && hit.distance < 2f){
+        if((hit.collider.gameObject.CompareTag("Ground") || (hit.collider.gameObject.CompareTag("enemy"))) && hit.distance < 2f){
             if(hasDoubleJump){
                 playerCanDoubleJump = true;
             }
@@ -241,6 +241,10 @@ public class PlayerControlScript : MonoBehaviour
     void OnCollisionEnter2D (Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Ground"))
+        {
+            ChecklandedOnFloor();
+        }
+        if(collision.gameObject.CompareTag("enemy"))
         {
             ChecklandedOnFloor();
         }
