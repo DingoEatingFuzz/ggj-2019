@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControlScript : MonoBehaviour
 {
@@ -233,6 +234,7 @@ public class PlayerControlScript : MonoBehaviour
             if (hasThirdkey)
             {
                 doorKeys[3].enabled = true;
+                SceneManager.LoadScene("EndScene");
             }
         }
     }
