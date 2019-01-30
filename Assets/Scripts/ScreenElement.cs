@@ -12,7 +12,6 @@ public class ScreenElement : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("Calling awake");
     }
     void Start()
     {
@@ -30,5 +29,6 @@ public class ScreenElement : MonoBehaviour
         colliderComp.size = s;
 
         this.tag = isFloor ? "Ground" : "Untagged";
+        gameObject.layer = isFloor ? 8 : 0;
     }
 }

@@ -5,6 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class PlayerControlScript : MonoBehaviour
 {
+    //TEST
+    public float moveSpeed;
+    private float moveInput;
+    public float jumpForce;
+    private bool isGrounded;
+    private bool isJumping;
+    private float jumpTimeCounter;
+    public float jumpTime;
+    public Transform feetPos;
+    public float circleRadius;
+    public LayerMask whatIsground;
 
     //Declarations
     public Rigidbody2D rb2d;
@@ -34,7 +45,7 @@ public class PlayerControlScript : MonoBehaviour
     private int shieldCoolDown = 7;
     public Animator anim;
     public GameData gameData;
-    public bool faceingRight = true;
+    public bool facingRight = true;
     public Vector3 spawnPosition;
     public bool jumping = false;
 
@@ -42,6 +53,14 @@ public class PlayerControlScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        moveSpeed = 4;
+        jumpForce = 18;
+        circleRadius = .3f;
+        isJumping = false;
+        jumpTime = .35f;
+
+
+
         gameData = gameObject.AddComponent<GameData>();
         rb2d = GetComponent<Rigidbody2D>();
         gina = gameObject.GetComponent<SpriteRenderer>();
@@ -64,8 +83,63 @@ public class PlayerControlScript : MonoBehaviour
 
         anim = gameObject.GetComponent<Animator>();
     }
+
+    void FixedUpdate()
+    {
+        moveInput = Input.GetAxis("horzAxis");
+        rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
+        if (moveInput > 0)
+        {
+            facingRight = true;
+            gina.flipX = false;
+            anim.SetTrigger("GinaWalk");
+        } else if (moveInput < 0)
+        {
+            facingRight = false;
+            gina.flipX = true;
+            anim.SetTrigger("GinaWalk");
+        } else
+        {
+            anim.SetTrigger("GinaIdle");
+        }
+    }
+
+    private void Update()
+    {
+        isGrounded = Physics2D.OverlapCircle(feetPos.position, circleRadius, whatIsground);
+        anim.SetBool("Jumping", !isGrounded);
+        if (isGrounded)
+        {
+            playerCanDoubleJump = true;
+        }
+
+        if ((isGrounded || (playerCanDoubleJump && hasDoubleJump)) && Input.GetButtonDown("aButton"))
+        {
+            isJumping = true;
+            jumpTimeCounter = jumpTime;
+            rb2d.velocity = Vector2.up * jumpForce;
+        }
+
+        if (isJumping && Input.GetButtonDown("aButton"))
+        {
+            if (jumpTimeCounter > 0)
+            {
+                rb2d.velocity = Vector2.up * jumpForce;
+                jumpTimeCounter -= Time.deltaTime;
+            } else
+            {
+                isJumping = false;
+            }
+        }
+        if (Input.GetButtonUp("aButton"))
+        {
+            isJumping = false;
+        }
+    }
+
+
     // Fixing Nick and Michael's HORRIBLE Code
-    void Update()
+    void OLDUpdate()
     {
         if (Input.GetAxisRaw("horzAxis") == 0)
         {
@@ -106,7 +180,7 @@ public class PlayerControlScript : MonoBehaviour
         }
     }
     // Update is called once per frame
-    void FixedUpdate()
+    void OLDFixedUpdate()
     {
         #region movement
         float horzMovement = Input.GetAxisRaw("horzAxis")*speed;
@@ -117,13 +191,13 @@ public class PlayerControlScript : MonoBehaviour
         if(rb2d.velocity.x > 0.25)
         {
             gina.flipX = false;
-            faceingRight = true;
+            facingRight = true;
             anim.SetTrigger("GinaWalk");
         }
         else if(rb2d.velocity.x < -0.25) 
         {
             gina.flipX = true;
-            faceingRight = false;
+            facingRight = false;
             anim.SetTrigger("GinaWalk");
         }
         else anim.SetTrigger("GinaIdle");
@@ -141,7 +215,7 @@ public class PlayerControlScript : MonoBehaviour
    public void Punch(){ 
        punching = true;       
         RaycastHit2D hit;
-        if(faceingRight)
+        if(facingRight)
         {
             hit = Physics2D.Raycast(transform.position, Vector2.right);
         }
@@ -246,26 +320,26 @@ public class PlayerControlScript : MonoBehaviour
         }
     }
 
-    //Check if the object is on the ground
-    void OnCollisionEnter2D (Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Ground"))
-        {
-            ChecklandedOnFloor();
-        }
-        if(collision.gameObject.CompareTag("enemy"))
-        {
-            ChecklandedOnFloor();
-        }
-    }
+    ////Check if the object is on the ground
+    //void OnCollisionEnter2D (Collision2D collision)
+    //{
+    //    if(collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        ChecklandedOnFloor();
+    //    }
+    //    if(collision.gameObject.CompareTag("enemy"))
+    //    {
+    //        ChecklandedOnFloor();
+    //    }
+    //}
 
-    //Check if the object has left the ground
-    void OnCollisionExit2D (Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Ground"))
-        {
+    ////Check if the object has left the ground
+    //void OnCollisionExit2D (Collision2D collision)
+    //{
+    //    if(collision.gameObject.CompareTag("Ground"))
+    //    {
             
 
-        }
-    }
+    //    }
+    //}
 }
