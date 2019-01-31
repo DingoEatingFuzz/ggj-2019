@@ -179,6 +179,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8262264170941133232, guid: cae17856f2d5bf44298bdadcd453f210,
+        type: 3}
+      propertyPath: ExitName
+      value: BottomRight
+      objectReference: {fileID: 0}
     - target: {fileID: 8262264170941133234, guid: cae17856f2d5bf44298bdadcd453f210,
         type: 3}
       propertyPath: m_Color.r
@@ -193,11 +198,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.058899242
-      objectReference: {fileID: 0}
-    - target: {fileID: 8262264170941133232, guid: cae17856f2d5bf44298bdadcd453f210,
-        type: 3}
-      propertyPath: ExitName
-      value: BottomRight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cae17856f2d5bf44298bdadcd453f210, type: 3}
@@ -268,6 +268,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8262264170941133232, guid: cae17856f2d5bf44298bdadcd453f210,
+        type: 3}
+      propertyPath: ExitName
+      value: TopRight
+      objectReference: {fileID: 0}
     - target: {fileID: 8262264170941133234, guid: cae17856f2d5bf44298bdadcd453f210,
         type: 3}
       propertyPath: m_Color.r
@@ -282,11 +287,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0.058899242
-      objectReference: {fileID: 0}
-    - target: {fileID: 8262264170941133232, guid: cae17856f2d5bf44298bdadcd453f210,
-        type: 3}
-      propertyPath: ExitName
-      value: TopRight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cae17856f2d5bf44298bdadcd453f210, type: 3}
@@ -387,6 +387,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 1907034464933986118, guid: b7349a7b3d378b54082f631b62f44e79,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2260845154880191599, guid: b7349a7b3d378b54082f631b62f44e79,
         type: 3}
@@ -498,6 +503,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 1907034464933986118, guid: b7349a7b3d378b54082f631b62f44e79,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2260845154880191599, guid: b7349a7b3d378b54082f631b62f44e79,
         type: 3}
@@ -620,7 +630,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1203296126}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 7cb5172ef79b2744899b420ec7c40a78, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -726,7 +736,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1357712661}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 7cb5172ef79b2744899b420ec7c40a78, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1059,6 +1069,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoubleBackground
       objectReference: {fileID: 0}
+    - target: {fileID: 7269252007412758907, guid: cd0e04b8a7451ad469dc2f4eb5cd4dd0,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269252007412758907, guid: cd0e04b8a7451ad469dc2f4eb5cd4dd0,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269252007412758907, guid: cd0e04b8a7451ad469dc2f4eb5cd4dd0,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269252007412758907, guid: cd0e04b8a7451ad469dc2f4eb5cd4dd0,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e8be931dd77bc074191f286f51166aa6,
+        type: 3}
     - target: {fileID: 1853840743112389678, guid: cd0e04b8a7451ad469dc2f4eb5cd4dd0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1114,27 +1145,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7269252007412758907, guid: cd0e04b8a7451ad469dc2f4eb5cd4dd0,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7269252007412758907, guid: cd0e04b8a7451ad469dc2f4eb5cd4dd0,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7269252007412758907, guid: cd0e04b8a7451ad469dc2f4eb5cd4dd0,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7269252007412758907, guid: cd0e04b8a7451ad469dc2f4eb5cd4dd0,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: e8be931dd77bc074191f286f51166aa6,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd0e04b8a7451ad469dc2f4eb5cd4dd0, type: 3}
 --- !u!1001 &1754538370
@@ -1153,6 +1163,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 1907034464933986118, guid: b7349a7b3d378b54082f631b62f44e79,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2260845154880191599, guid: b7349a7b3d378b54082f631b62f44e79,
         type: 3}
@@ -1324,7 +1339,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1885072494}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 7cb5172ef79b2744899b420ec7c40a78, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1430,7 +1445,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2074369209}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 7cb5172ef79b2744899b420ec7c40a78, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
