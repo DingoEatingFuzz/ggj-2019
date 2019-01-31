@@ -139,35 +139,7 @@ public class PlayerControlScript : MonoBehaviour
         {
             isJumping = false;
         }
-    }
 
-
-    // Fixing Nick and Michael's HORRIBLE Code
-    void OLDUpdate()
-    {
-        if (Input.GetAxisRaw("horzAxis") == 0)
-        {
-            rb2d.velocity = new Vector2((rb2d.velocity.x * 0.5f), rb2d.velocity.y);
-        }
-
-        if (Input.GetButtonDown("aButton"))
-        {
-
-            if (!jumping || (playerCanDoubleJump && hasDoubleJump))
-            {
-                Vector3 jumpMovement = new Vector3(0.0f, 1.0f, 0.0f);
-                rb2d.velocity = jumpMovement * jumpSpeed;
-
-                if (jumping && playerCanDoubleJump)
-                {
-                    playerCanDoubleJump = false;
-                }
-                anim.SetBool("Jumping", true);
-                jumping = true;
-            }
-        }
-
-        //Punch Logic
         if (Input.GetButtonDown("bButton") && !jumping && hasHornPunch && !punching)
         {
             Punch();
@@ -183,38 +155,6 @@ public class PlayerControlScript : MonoBehaviour
             }
         }
     }
-    // Update is called once per frame
-    void OLDFixedUpdate()
-    {
-        #region movement
-        float horzMovement = Input.GetAxisRaw("horzAxis")*speed;
-        Vector2 movement = new Vector2 (horzMovement, 0);
-        
-        rb2d.AddForce (movement * speed);
-
-        if(rb2d.velocity.x > 0.25)
-        {
-            gina.flipX = false;
-            facingRight = true;
-            anim.SetTrigger("GinaWalk");
-        }
-        else if(rb2d.velocity.x < -0.25) 
-        {
-            gina.flipX = true;
-            facingRight = false;
-            anim.SetTrigger("GinaWalk");
-        }
-        else anim.SetTrigger("GinaIdle");
-
-        #endregion
-
-        #region Action handling
-    
-        if(!jumping){
-            anim.SetBool("Jumping",false);
-        }
-        #endregion
-    }
 
    public void Punch(){ 
        punching = true;       
@@ -229,16 +169,6 @@ public class PlayerControlScript : MonoBehaviour
           Destroy(hit.collider.gameObject);
         }
         punching = false;
-    }
-    public void ChecklandedOnFloor(){
-        RaycastHit2D hit;
-        hit = Physics2D.Raycast(transform.position,Vector2.down);
-        if((hit.collider.gameObject.CompareTag("Ground") || (hit.collider.gameObject.CompareTag("enemy"))) && hit.distance < 2f){
-            if(hasDoubleJump){
-                playerCanDoubleJump = true;
-            }
-            if(jumping)jumping=false;
-        }
     }
 
     public void playerDeath(){
@@ -323,27 +253,4 @@ public class PlayerControlScript : MonoBehaviour
             }
         }
     }
-
-    ////Check if the object is on the ground
-    //void OnCollisionEnter2D (Collision2D collision)
-    //{
-    //    if(collision.gameObject.CompareTag("Ground"))
-    //    {
-    //        ChecklandedOnFloor();
-    //    }
-    //    if(collision.gameObject.CompareTag("enemy"))
-    //    {
-    //        ChecklandedOnFloor();
-    //    }
-    //}
-
-    ////Check if the object has left the ground
-    //void OnCollisionExit2D (Collision2D collision)
-    //{
-    //    if(collision.gameObject.CompareTag("Ground"))
-    //    {
-            
-
-    //    }
-    //}
 }
