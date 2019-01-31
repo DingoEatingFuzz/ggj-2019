@@ -115,6 +115,10 @@ public class PlayerControlScript : MonoBehaviour
 
         if ((isGrounded || (playerCanDoubleJump && hasDoubleJump)) && Input.GetButtonDown("aButton"))
         {
+            if (!isGrounded && !isJumping)
+            {
+                playerCanDoubleJump = false;
+            }
             isJumping = true;
             jumpTimeCounter = jumpTime;
             rb2d.velocity = Vector2.up * jumpForce;
