@@ -42,7 +42,7 @@ public class PlayerControlScript : MonoBehaviour
     public SpriteRenderer key3Icon;
 
     private int shieldOnTime = 5;
-    private int shieldCoolDown = 7;
+    private int shieldCoolDown = 3;
     public Animator anim;
     public GameData gameData;
     public bool facingRight = true;
