@@ -86,7 +86,7 @@ public class PlayerControlScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        moveInput = Input.GetAxis("horzAxis");
+        moveInput = Input.GetAxisRaw("horzAxis");
         rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
         if (moveInput > 0)
         {
