@@ -19,7 +19,10 @@ public class PlayerControlScript : MonoBehaviour
 
     //Declarations
     public Rigidbody2D rb2d;
-    public BoxCollider2D ginaCollider;
+    public CapsuleCollider2D ginaCollider;
+    public AudioClip spoopy2;
+    public AudioSource audioSource;
+
     public float speed = 5f;
     public float jumpSpeed = 8;
     public bool hasFirstKey = false;
@@ -64,7 +67,7 @@ public class PlayerControlScript : MonoBehaviour
 
         gameData = gameObject.AddComponent<GameData>();
         rb2d = GetComponent<Rigidbody2D>();
-        ginaCollider = GetComponent<BoxCollider2D>();
+        ginaCollider = GetComponent<CapsuleCollider2D>();
         gina = gameObject.GetComponent<SpriteRenderer>();
         shield = transform.Find("tempShield").gameObject.GetComponent<SpriteRenderer>();
         shield.enabled = false;
@@ -84,6 +87,7 @@ public class PlayerControlScript : MonoBehaviour
         key3Icon.enabled = false;
 
         anim = gameObject.GetComponent<Animator>();
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -207,6 +211,19 @@ public class PlayerControlScript : MonoBehaviour
         }
     }
 
+    IEnumerator ChangeSong()
+    {
+        var tte = audioSource.clip.length - audioSource.time;
+        if (tte > 0)
+        {
+            yield return new WaitForSecondsRealtime(tte);
+        }
+        audioSource.clip = spoopy2;
+        audioSource.Play();
+        yield return null;
+        
+    }
+
     void OnTriggerEnter2D (Collider2D collision){
         if(collision.gameObject.CompareTag("firstKey")){
             hasFirstKey = true;
@@ -230,6 +247,7 @@ public class PlayerControlScript : MonoBehaviour
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("punchItem")){
+            StartCoroutine(ChangeSong());
             hasHornPunch = true;
             gloveIcon.enabled = true;
             Destroy(collision.gameObject);
