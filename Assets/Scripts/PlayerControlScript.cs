@@ -19,6 +19,7 @@ public class PlayerControlScript : MonoBehaviour
 
     //Declarations
     public Rigidbody2D rb2d;
+    public BoxCollider2D ginaCollider;
     public float speed = 5f;
     public float jumpSpeed = 8;
     public bool hasFirstKey = false;
@@ -63,6 +64,7 @@ public class PlayerControlScript : MonoBehaviour
 
         gameData = gameObject.AddComponent<GameData>();
         rb2d = GetComponent<Rigidbody2D>();
+        ginaCollider = GetComponent<BoxCollider2D>();
         gina = gameObject.GetComponent<SpriteRenderer>();
         shield = transform.Find("tempShield").gameObject.GetComponent<SpriteRenderer>();
         shield.enabled = false;
@@ -182,6 +184,12 @@ public class PlayerControlScript : MonoBehaviour
         yield return new WaitForSecondsRealtime(shieldOnTime);
         shield.enabled = false;
         shieldIsActive = false;
+        foreach(var enemy in GameObject.FindGameObjectsWithTag("enemy")) {
+            if (ginaCollider.IsTouching(enemy.GetComponent<BoxCollider2D>())) {
+                playerDeath();
+            }
+
+        }
         yield return new WaitForSecondsRealtime(shieldCoolDown);
         canActivateShield = true;
     }
