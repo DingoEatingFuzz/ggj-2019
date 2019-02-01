@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 70869614}
   - component: {fileID: 70869613}
   - component: {fileID: 70869616}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LavaFloor (2)
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -547,7 +547,7 @@ PrefabInstance:
     - target: {fileID: 2260845154880191599, guid: b7349a7b3d378b54082f631b62f44e79,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2260845154880191599, guid: b7349a7b3d378b54082f631b62f44e79,
         type: 3}
@@ -752,7 +752,7 @@ PrefabInstance:
     - target: {fileID: 2260845154880191599, guid: b7349a7b3d378b54082f631b62f44e79,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2260845154880191599, guid: b7349a7b3d378b54082f631b62f44e79,
         type: 3}
@@ -1033,7 +1033,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1034014800
 PrefabInstance:
@@ -1554,7 +1554,7 @@ GameObject:
   - component: {fileID: 1427348172}
   - component: {fileID: 1427348171}
   - component: {fileID: 1427348174}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LavaFloor (3)
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -1647,7 +1647,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1427348174
 BoxCollider2D:
@@ -1735,7 +1735,7 @@ PrefabInstance:
     - target: {fileID: 2260845154880191599, guid: b7349a7b3d378b54082f631b62f44e79,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2260845154880191599, guid: b7349a7b3d378b54082f631b62f44e79,
         type: 3}
@@ -2117,5 +2117,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
