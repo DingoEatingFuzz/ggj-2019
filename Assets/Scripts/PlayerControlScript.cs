@@ -53,7 +53,7 @@ public class PlayerControlScript : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        moveSpeed = 4;
+        moveSpeed = 5;
         jumpForce = 8;
         circleRadius = .3f;
         isJumping = false;
