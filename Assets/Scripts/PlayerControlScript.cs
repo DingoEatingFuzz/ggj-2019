@@ -54,10 +54,10 @@ public class PlayerControlScript : MonoBehaviour
     void Awake()
     {
         moveSpeed = 4;
-        jumpForce = 18;
+        jumpForce = 8;
         circleRadius = .3f;
         isJumping = false;
-        jumpTime = .35f;
+        jumpTime = .25f;
 
 
 
@@ -87,7 +87,7 @@ public class PlayerControlScript : MonoBehaviour
     void FixedUpdate()
     {
         moveInput = Input.GetAxisRaw("horzAxis");
-        rb2d.velocity = new Vector2(moveInput * moveSpeed, rb2d.velocity.y);
+        rb2d.velocity = new Vector2(moveInput * moveSpeed * (isGrounded ? 1 : 1.5f), rb2d.velocity.y);
         if (moveInput > 0)
         {
             facingRight = true;
@@ -124,7 +124,7 @@ public class PlayerControlScript : MonoBehaviour
             rb2d.velocity = Vector2.up * jumpForce;
         }
 
-        if (isJumping && Input.GetButtonDown("aButton"))
+        if (isJumping && Input.GetButton("aButton"))
         {
             if (jumpTimeCounter > 0)
             {
