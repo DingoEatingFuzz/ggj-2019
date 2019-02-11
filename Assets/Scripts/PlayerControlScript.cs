@@ -72,18 +72,19 @@ public class PlayerControlScript : MonoBehaviour
         shield = transform.Find("tempShield").gameObject.GetComponent<SpriteRenderer>();
         shield.enabled = false;
 
-        shieldIcon = transform.Find("Shield").gameObject.GetComponent<SpriteRenderer>();
+        var camera = transform.parent.Find("CharCamera").transform;
+        shieldIcon = camera.Find("Shield").gameObject.GetComponent<SpriteRenderer>();
         shieldIcon.enabled = false;
-        gloveIcon = transform.Find("BoxingGlove").gameObject.GetComponent<SpriteRenderer>();
+        gloveIcon = camera.Find("BoxingGlove").gameObject.GetComponent<SpriteRenderer>();
         gloveIcon.enabled = false;
-        featherIcon = transform.Find("Feather").gameObject.GetComponent<SpriteRenderer>();
+        featherIcon = camera.Find("Feather").gameObject.GetComponent<SpriteRenderer>();
         featherIcon.enabled = false;
 
-        key1Icon = transform.Find("Key1").gameObject.GetComponent<SpriteRenderer>();
+        key1Icon = camera.Find("Key1").gameObject.GetComponent<SpriteRenderer>();
         key1Icon.enabled = false;
-        key2Icon = transform.Find("Key2").gameObject.GetComponent<SpriteRenderer>();
+        key2Icon = camera.Find("Key2").gameObject.GetComponent<SpriteRenderer>();
         key2Icon.enabled = false;
-        key3Icon = transform.Find("Key3").gameObject.GetComponent<SpriteRenderer>();
+        key3Icon = camera.Find("Key3").gameObject.GetComponent<SpriteRenderer>();
         key3Icon.enabled = false;
 
         anim = gameObject.GetComponent<Animator>();
