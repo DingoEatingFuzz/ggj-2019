@@ -42,6 +42,7 @@ public class GameData : MonoBehaviour {
     } else {
             // Move the inner gina object to the exit coordinates
             player.GetComponentInChildren<PlayerControlScript>().spawnPosition = exitObj.transform.position;
+            Debug.Log("Moving Gina to (" + exitObj.transform.position.x + ", " + exitObj.transform.position.y + ")");
             player.transform.GetChild(1).position = exitObj.transform.position;
             Camera.main.transform.position = exitObj.transform.position + new Vector3(0, 3, -30f);
     }
